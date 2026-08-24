@@ -4,6 +4,8 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { FACTS as F, SITE } from "@/data/facts";
 import { LANGS, LANG_CODES } from "@/data/langs";
+import { PAGE_SLUGS } from "@/data/pages";
+import EnglishDoc, { enDocMetadata } from "./english-doc";
 
 /*
   言語ディレクトリのトップ（/de/ など）。英語版 app/page.tsx と同じ構成・同じUIで、
@@ -13,12 +15,17 @@ import { LANGS, LANG_CODES } from "@/data/langs";
 */
 
 export const dynamicParams = false;
+/** ⚠️ 言語ディレクトリ（/zh-tw/ など）と英語の下層ページ（/cost/ など）が同じ階層に並ぶ。
+ *  片方だけの動的ルートにすると Next が経路を区別できずビルドが落ちるので、
+ *  1つの [seg] で受けて中身で振り分ける（eVisitor と同じ形）。 */
 export function generateStaticParams() {
-  return LANG_CODES.map((lang) => ({ lang }));
+  return [...LANG_CODES.map((seg) => ({ seg })), ...PAGE_SLUGS.map((seg) => ({ seg }))];
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ seg: string }> }): Promise<Metadata> {
+  const { seg } = await params;
+  const lang = seg;
+  if (!LANGS[lang]) return enDocMetadata(seg);
   const t = LANGS[lang];
   return {
     title: { absolute: t.meta.title },
@@ -31,8 +38,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default async function LangHome({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang } = await params;
+export default async function LangHome({ params }: { params: Promise<{ seg: string }> }) {
+  const { seg } = await params;
+  const lang = seg;
+  if (!LANGS[lang]) return <EnglishDoc slug={seg} />;
   const t = LANGS[lang];
   const faqLd = {
     "@context": "https://schema.org",

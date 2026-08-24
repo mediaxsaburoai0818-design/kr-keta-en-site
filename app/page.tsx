@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import StickyCta from "@/components/StickyCta";
+import Link from "next/link";
 import { FACTS as F, SITE } from "@/data/facts";
+import { PAGES } from "@/data/pages";
 import { LANG_CODES } from "@/data/langs";
 
 /*
@@ -339,6 +341,24 @@ export default function Home() {
               </summary>
               <p className="mt-3 text-sm leading-relaxed">{f.a}</p>
             </details>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 下層ページへの導線（リンクの無いページは作らない方針） ── */}
+      <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+        <h2 className="heading-band text-2xl md:text-3xl reveal">Read more about K-ETA</h2>
+        <div className="mt-8 grid md:grid-cols-3 gap-5">
+          {PAGES.filter((p) => !["privacy", "terms", "about"].includes(p.slug)).map((p, i) => (
+            <Link key={p.slug} href={`/${p.slug}/`} className={`feature-card no-underline reveal reveal-delay-${(i % 4) + 1}`}>
+              <h3 className="font-bold" style={{ color: "var(--color-navy)" }}>{p.nav}</h3>
+              <p className="mt-2 text-sm leading-relaxed">{p.description}</p>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-wrap gap-4 text-xs reveal">
+          {PAGES.filter((p) => ["about", "privacy", "terms"].includes(p.slug)).map((p) => (
+            <Link key={p.slug} href={`/${p.slug}/`}>{p.nav}</Link>
           ))}
         </div>
       </section>

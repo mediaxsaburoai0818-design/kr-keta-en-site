@@ -15,7 +15,9 @@ export type Block =
   | { h2: string }
   | { p: string }
   | { ul: string[] }
-  | { note: string };
+  | { note: string }
+  /** 出典リンク。数値・罰則を書いたページには必ず添える */
+  | { source: { label: string; url: string } };
 
 export type Page = {
   slug: string;
@@ -330,6 +332,275 @@ export const PAGES: Page[] = [
       },
       { h2: "Can I get it faster by paying more?" },
       { p: "No. No express service exists, official or otherwise." },
+    ],
+  },
+  {
+    slug: "how-long-can-you-stay",
+    nav: "How long you can stay",
+    title: "How long can you stay in Korea? The K-ETA does not decide this",
+    description:
+      "Unlike the NZeTA or eVisitor, a K-ETA does not set your permitted stay. The number comes from the visa-waiver arrangement with your country, and it ranges from 30 to 90 days.",
+    blocks: [
+      {
+        p: `This is the question most guides answer wrongly, because they copy the format used for other travel authorisations. A K-ETA is permission to board and to be assessed on arrival. **It does not contain a length of stay.** Your permitted stay comes from the visa-waiver arrangement between Korea and the country that issued your passport, and it is typically somewhere in the range of ${F.stayRange}.`,
+      },
+      { h2: "Why no single number exists" },
+      {
+        ul: [
+          "Each visa-waiver arrangement is negotiated separately, so the figure differs by nationality",
+          "The K-ETA record itself carries no stay period",
+          "The immigration officer at the airport sets the actual permitted stay on entry",
+        ],
+      },
+      { h2: "How to find your number" },
+      {
+        p: "Check the visa-waiver arrangement for your nationality on the official portal before you book. If a site tells you a single figure that applies to everyone, it is not describing how this works.",
+      },
+      { h2: "The two things that are separate" },
+      {
+        ul: [
+          `K-ETA validity — ${F.validYears} years, or until your passport expires`,
+          `Permitted stay — set per entry, from your country's arrangement (${F.stayRange})`,
+        ],
+      },
+      { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
+      {
+        note: `⚠️ Many nationalities are temporarily exempt from K-ETA until ${F.exemptionUntil}. Being exempt from the K-ETA does not change your permitted stay — that still comes from the visa-waiver arrangement.`,
+      },
+    ],
+  },
+  {
+    slug: "leaving-and-returning",
+    nav: "Leaving and returning",
+    title: "Leaving Korea and coming back on the same K-ETA",
+    description:
+      `A K-ETA covers multiple entries for ${F.validYears} years, so you do not reapply for each trip. What resets on re-entry is your permitted stay, not your right to enter.`,
+    blocks: [
+      {
+        p: `A K-ETA is valid for ${F.validYears} years and covers multiple entries, so short trips out of Korea and back do not require a new application. Each entry is assessed on its own, and the officer sets the permitted stay again.`,
+      },
+      { h2: "What does not reset" },
+      {
+        ul: [
+          "The visa-waiver arrangement itself — you cannot use repeated entries to turn a 30-day arrangement into permanent residence",
+          "Your K-ETA validity — it still expires on its original date",
+          "The record of how you have been using it",
+        ],
+      },
+      { h2: "Repeat visits attract questions" },
+      {
+        p: "Korea, like most countries, treats visa-waiver entry as being for visits. A pattern of leaving for a few days and returning each time your stay runs out is visible in the system, and an officer can refuse entry even with a valid K-ETA.",
+      },
+      { h2: "What to have ready on re-entry" },
+      {
+        ul: [
+          "An onward or return ticket",
+          "Your accommodation address in Korea",
+          "Something showing you are going home: work, study, family",
+        ],
+      },
+      { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
+      {
+        note: `If you are currently exempt from the K-ETA (until ${F.exemptionUntil}), you do not need one for these trips at all. Check your eligibility before paying anything.`,
+      },
+    ],
+  },
+  {
+    slug: "passport-and-details",
+    nav: "Passport and details",
+    title: "Your K-ETA is tied to one passport",
+    description:
+      "The K-ETA is linked to the passport used in the application. Renewing your passport ends it early, and a mismatch between your details and the record stops you at check-in.",
+    blocks: [
+      {
+        p: `A K-ETA is valid for ${F.validYears} years, but there is a condition that catches people out: it is attached to the passport you applied with. If that passport is replaced, the authorisation stops being usable even though the ${F.validYears} years have not elapsed.`,
+      },
+      { h2: "When you need to apply again" },
+      {
+        ul: [
+          "You renewed or replaced your passport",
+          "Your passport was reissued after loss or damage",
+          "You changed the nationality you travel on",
+        ],
+      },
+      { h2: "Enter your details exactly as printed" },
+      {
+        ul: [
+          "Names as in the machine-readable zone, not as you normally write them",
+          "Passport number character by character — 0 and O, 1 and I",
+          "Nationality as shown on the passport, not where you live",
+          "A photo that meets the requirements — rejections are most often about the photo",
+        ],
+      },
+      { h2: "Only one official channel" },
+      {
+        p: `Applications are made only at ${F.officialHost}. The fee is ${F.fee}. Sites charging more are third parties adding their own margin, and entering your passport number anywhere else is a risk you do not need to take.`,
+      },
+      { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
+      {
+        note: `⚠️ Before applying at all, check whether your nationality is currently exempt. Exemption runs to ${F.exemptionUntil}, and applying while exempt gives you no benefit and no refund.`,
+      },
+    ],
+  },
+  {
+    slug: "border-questions",
+    nav: "At the border",
+    title: "What happens when you arrive in Korea",
+    description:
+      "Immigration, quarantine and customs are three separate checks. Knowing which one asks what is the difference between ten minutes and an hour.",
+    blocks: [
+      {
+        p: "Arriving passengers pass three checks run by three different agencies. They ask about different things, and the paperwork for each is separate.",
+      },
+      { h2: "1. Immigration" },
+      {
+        ul: [
+          "How long you are staying and where",
+          "Whether you have an onward or return ticket",
+          "The purpose of the visit",
+          "Fingerprints and a facial photo for most arriving travellers",
+        ],
+      },
+      {
+        p: "This is where your permitted stay is set. A valid K-ETA — or a valid exemption — gets you to this desk; it does not decide the outcome.",
+      },
+      { h2: "2. Quarantine" },
+      {
+        p: `Korea checks arriving travellers for animal and plant material. This is not a formality: failing to declare can bring a fine of up to ${F.quarantineMaxFine} under the ${F.quarantineLaw}.`,
+      },
+      { h2: "3. Customs" },
+      {
+        p: `Everyone submits a declaration of personal effects. You must declare goods above the duty-free allowance of ${F.customsGoodsAllowance}.`,
+      },
+      { h2: "Have this ready before you land" },
+      {
+        ul: [
+          "Your accommodation address in Korea, written out",
+          "Your onward flight details",
+          "An honest answer about food and plant items in your bag",
+        ],
+      },
+      { source: { label: "Animal and Plant Quarantine Agency — Rules for overseas travellers", url: "https://www.qia.go.kr/english/html/Animal_livestock/02AnimalLivestock_003-5.jsp" } },
+      {
+        note: "If you are unsure whether something needs declaring, declare it. There is no penalty for declaring an item that turns out to be allowed.",
+      },
+    ],
+  },
+  {
+    slug: "quarantine",
+    nav: "Quarantine",
+    title: "Korean quarantine: meat and plant products, and the fine for not declaring",
+    description:
+      `Failing to declare animal or plant products on arrival in Korea can bring a fine of up to ${F.quarantineMaxFine} under the ${F.quarantineLaw}.`,
+    blocks: [
+      {
+        p: `Korea has tightened its border quarantine substantially in response to African Swine Fever and other animal diseases. Travellers carrying meat products are the route these diseases travel, and the rules are enforced on arrival.`,
+      },
+      { h2: "The penalty" },
+      {
+        p: `Travellers who fail to make a quarantine declaration may be fined up to ${F.quarantineMaxFine} under the ${F.quarantineLaw}. The fine applies to the failure to declare, not only to items that turn out to be prohibited.`,
+      },
+      { h2: "What you must declare" },
+      {
+        ul: [
+          "Meat and meat products of any kind — including cured, dried and canned",
+          "Dairy products and eggs",
+          "Fresh fruit, vegetables, seeds and nuts",
+          "Plants, soil, and items with soil on them",
+          "Live animals, and anything used around animals",
+        ],
+      },
+      { h2: "Things travellers assume are fine, and are not" },
+      {
+        ul: [
+          "Sausage or jerky bought at the airport you departed from",
+          "Home-made food packed by family",
+          "Dried meat in instant noodle packets",
+          "Fruit taken from the plane",
+        ],
+      },
+      { h2: "The rule that keeps you safe" },
+      {
+        p: "Declaring costs nothing. If the item is permitted you keep it; if it is not, it is disposed of and that is the end of it. The fine is for not declaring, so there is no situation in which staying quiet is the better option.",
+      },
+      { source: { label: "Animal and Plant Quarantine Agency — Rules for overseas travellers", url: "https://www.qia.go.kr/english/html/Animal_livestock/02AnimalLivestock_003-5.jsp" } },
+    ],
+  },
+  {
+    slug: "customs-allowances",
+    nav: "Customs allowances",
+    title: "Korean duty-free allowances for arriving travellers",
+    description:
+      `The general allowance is ${F.customsGoodsAllowance}, with separate limits for alcohol, tobacco and perfume. Travellers under ${F.customsAgeMin} do not get the alcohol and tobacco exemptions.`,
+    blocks: [
+      {
+        p: "Customs is separate from quarantine. Quarantine asks whether an item is a disease risk; customs asks whether duty is owed. Both are declared on arrival, and clearing one does not clear the other.",
+      },
+      { h2: "The allowances" },
+      {
+        ul: [
+          `General goods: ${F.customsGoodsAllowance} in total taxable value`,
+          `Alcohol: up to ${F.customsAlcoholLitres} litres in total and ${F.customsAlcoholValue}, counted separately from the general allowance`,
+          `Tobacco: ${F.customsCigarettes} cigarettes`,
+          `Perfume: ${F.customsPerfumeMl} ml`,
+        ],
+      },
+      { h2: "Age limit" },
+      {
+        p: `Travellers under ${F.customsAgeMin} years of age — counted by year of birth, not by birthday — do not receive the alcohol and tobacco exemptions. This trips up families who assume a teenager's allowance can be used.`,
+      },
+      { h2: "If you are over the limit" },
+      {
+        p: "Declare it. Duty and tax are worked out on the excess. Not declaring goods above the allowance is a separate problem from the duty itself, and a more expensive one.",
+      },
+      { source: { label: "Korea Customs Service — Duty-free allowance for travellers", url: "https://www.customs.go.kr/english/cm/cntnts/cntntsView.do?mi=8028&cntntsId=2716" } },
+      {
+        note: "Duty-free bought on the way into Korea still counts towards the allowance. Buying airside does not exempt it.",
+      },
+    ],
+  },
+  {
+    slug: "if-you-are-exempt",
+    nav: "If you are exempt",
+    title: `What to do if your country is exempt from the K-ETA until ${F.exemptionUntil}`,
+    description:
+      "Many nationalities do not currently need a K-ETA at all. Applying anyway costs money and gives you nothing. Here is how to check, and what still applies.",
+    blocks: [
+      {
+        p: `A large number of countries are temporarily exempt from the K-ETA requirement until ${F.exemptionUntil}. If your passport is on that list, you do not need to apply, and applying gives you no advantage at the border.`,
+      },
+      { h2: "Check first, pay second" },
+      {
+        p: `The exemption list is published on the official portal and it changes. ⚠️ Reports have described the exemption as covering anywhere from 22 to 67 countries and territories, and those figures do not agree — so do not rely on a number you read in an article. Check the list itself for your passport.`,
+      },
+      { h2: "If you are exempt and apply anyway" },
+      {
+        ul: [
+          `You pay ${F.fee} for something you did not need`,
+          "There is no refund",
+          "You get no priority and no faster processing at the border",
+        ],
+      },
+      { h2: "What still applies while you are exempt" },
+      {
+        ul: [
+          "The permitted stay from your country's visa-waiver arrangement",
+          "The quarantine declaration and its penalties",
+          "The customs allowance",
+          "Immigration's assessment on arrival",
+        ],
+      },
+      {
+        p: "In other words, exemption removes one step before you fly. It does not change anything about what happens when you land.",
+      },
+      { h2: "After the exemption ends" },
+      {
+        p: `The exemption currently runs to ${F.exemptionUntil}. If it is not extended, travellers from those countries will need a K-ETA again. Check the official portal close to your travel date rather than relying on what was true when you last visited.`,
+      },
+      { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
+      {
+        note: `⚠️ The most common way to lose money on a K-ETA is not the fee — it is paying a third-party site to submit an application you did not need in the first place.`,
+      },
     ],
   },
   {

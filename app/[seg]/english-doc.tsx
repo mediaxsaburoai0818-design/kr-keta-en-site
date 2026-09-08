@@ -73,6 +73,16 @@ export default function EnglishDoc({ slug }: { slug: string }) {
                 {b.ul.map((x) => <li key={x}>{x}</li>)}
               </ul>
             );
+          if ("source" in b)
+            // 出典リンク。数値を書いたページには必ず一次情報へのリンクを添える
+            return (
+              <p key={i} className="mt-4 text-xs reveal" style={{ color: "#667" }}>
+                Source:{" "}
+                <a href={b.source.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>
+                  {b.source.label}
+                </a>
+              </p>
+            );
           return (
             <div key={i} className="card mt-6 reveal" style={{ background: "var(--color-bg-soft)" }}>
               <p className="text-sm leading-relaxed">{b.note}</p>

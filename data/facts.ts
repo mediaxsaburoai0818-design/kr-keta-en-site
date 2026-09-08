@@ -20,6 +20,22 @@ export const FACTS = {
   exemptionUntil: "31 December 2026",
   exemptionUntilIso: "2026-12-31",
   stayRange: "30 to 90 days",
+
+  /* ── 入国・滞在の実務（2026-09-08 公式で裏取り。出典は各ページに明記する） ──
+     ⚠️ 罰則と免税枠は間違えると読者に実害が出る。必ず一次情報を確認してから変えること。 */
+
+  /** 検疫（動植物検疫本部）: 申告漏れは家畜伝染病予防法により最大500万ウォン */
+  quarantineMaxFine: "KRW 5 million",
+  quarantineLaw: "Contagious Animal Diseases Prevention Act",
+
+  /** 税関（関税庁）の免税枠 */
+  customsGoodsAllowance: "US$800",
+  customsAlcoholLitres: 2,
+  customsAlcoholValue: "US$400",
+  customsCigarettes: 200,
+  customsPerfumeMl: 100,
+  /** 19歳未満（生年基準）は酒・たばこの免税対象外 */
+  customsAgeMin: 19,
   updated: "2026-08-17",
   updatedLabel: "17 August 2026",
   /** 申請先。公式（.go.kr）以外に窓口は無いので、CTAは全部ここを指す */

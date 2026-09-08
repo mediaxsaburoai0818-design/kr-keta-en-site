@@ -30,7 +30,14 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   /** ⚠️ Search Consoleの所有権確認はMETA方式。
    *  FILE方式は trailingSlash:true のせいで /googleXXXX.html が308になり使えなかった。 */
-  verification: { google: "ElMs0b0T0D__8x_xObFp9kihtkZD20zzjTJcPNdVJkQ" },
+  // Search Consoleの所有権確認。複数アカウントぶんを配列で並べられる。
+  // 1つ目: 既存の管理アカウント / 2つ目: Saburo MediXAI（2026-09-08 okina依頼）
+  verification: {
+    google: [
+      "ElMs0b0T0D__8x_xObFp9kihtkZD20zzjTJcPNdVJkQ",
+      "Q-K0VZlGAjEPOPFOCGecnQjraclefeMvFTvyRS5WJX8",
+    ],
+  },
   openGraph: {
     title: "K-ETA Guide — who needs one, and who is exempt until 31 December 2026",
     description:

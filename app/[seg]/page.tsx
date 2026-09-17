@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ seg: stri
     description: t.meta.description,
     alternates: {
       canonical: `${SITE}/${lang}/`,
-      languages: { en: `${SITE}/`, ...Object.fromEntries(LANG_CODES.map((c) => [c, `${SITE}/${c}/`])) },
+      languages: { en: `${SITE}/`, ...Object.fromEntries(LANG_CODES.map((c) => [LANGS[c].htmlLang, `${SITE}/${c}/`])) },
     },
     openGraph: { title: t.meta.title, description: t.meta.description, locale: t.htmlLang, type: "website" },
   };

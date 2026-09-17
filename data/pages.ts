@@ -350,7 +350,7 @@ export const PAGES: Page[] = [
       "Unlike the NZeTA or eVisitor, a K-ETA does not set your permitted stay. The number comes from the visa-waiver arrangement with your country, and it ranges from 30 to 90 days.",
     blocks: [
       {
-        p: `This is the question most guides answer wrongly, because they copy the format used for other travel authorisations. A K-ETA is permission to board and to be assessed on arrival. **It does not contain a length of stay.** Your permitted stay comes from the visa-waiver arrangement between Korea and the country that issued your passport, and it is typically somewhere in the range of ${F.stayRange}.`,
+        p: `This is the question most guides answer wrongly, because they copy the format used for other travel authorisations. A K-ETA is permission to board and to be assessed on arrival. It does not contain a length of stay. Your permitted stay comes from the visa-waiver arrangement between Korea and the country that issued your passport, and it is typically somewhere in the range of ${F.stayRange}.`,
       },
       { h2: "Why no single number exists" },
       {

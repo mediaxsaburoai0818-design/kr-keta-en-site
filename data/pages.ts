@@ -153,6 +153,14 @@ export const PAGES: Page[] = [
           "A rejected application is not refunded, whoever you paid.",
         ],
       },
+      { h2: "If you have already paid far more than the official fee" },
+      {
+        ul: [
+          "Check that you actually received a K-ETA, not just a receipt from the agency.",
+          `Verify the status against your passport on ${F.officialHost}.`,
+          "If no application was ever lodged, raise a dispute with your card issuer.",
+        ],
+      },
       { h2: "One payment covers the validity period" },
       {
         p: `A granted K-ETA lasts ${F.validYears} years and can be used for multiple trips within that period, so the fee is not per journey. It ends early if your passport expires.`,
@@ -600,6 +608,99 @@ export const PAGES: Page[] = [
       { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
       {
         note: `⚠️ The most common way to lose money on a K-ETA is not the fee — it is paying a third-party site to submit an application you did not need in the first place.`,
+      },
+    ],
+  },
+  {
+    slug: "transit-through-korea",
+    nav: "Transit",
+    title: "Changing planes in Korea: do you need a K-ETA?",
+    description:
+      "Whether a K-ETA applies to a transit depends on whether you pass immigration. Staying airside and entering the country are treated differently.",
+    blocks: [
+      {
+        p: `A connection in Incheon is one of the most common reasons people end up on this page, and the answer turns on a single question: do you leave the international transit area?`,
+      },
+      { h2: "If you stay airside" },
+      {
+        p: `Passengers who remain in the international transit area and board an onward flight do not enter Korea. In that case no entry permission applies, because there is no entry.`,
+      },
+      { h2: "If you leave the airport" },
+      {
+        p: `Going through immigration — to collect checked baggage, to stay overnight outside the airport, or to see the city between flights — is an entry. That is when the K-ETA or an applicable exemption matters, exactly as it would for a holiday.`,
+      },
+      { h2: "Long layovers are where people get caught" },
+      {
+        ul: [
+          `Baggage that is not checked through to the final destination forces you to enter.`,
+          `An overnight connection with a hotel outside the airport is an entry.`,
+          `Terminal changes that require re-entry through immigration are an entry.`,
+        ],
+      },
+      { note: `Decide this before you book, not at the transfer desk. If there is any chance you will leave the airport, apply and have the permission in hand — it is valid for ${F.validYears} years, so it is not wasted.` },
+      {
+        source: {
+          label: "K-ETA official portal",
+          url: F.officialUrl,
+        },
+      },
+    ],
+  },
+  {
+    slug: "when-the-exemption-ends",
+    nav: "After the exemption",
+    title: `What happens after the temporary exemption ends on ${F.exemptionUntil}?`,
+    description:
+      `Many nationalities are temporarily exempt from the K-ETA until ${F.exemptionUntil}. What that means for trips planned around that date.`,
+    blocks: [
+      {
+        p: `The exemption currently in place is temporary, and the announced end date is ${F.exemptionUntil}. If your trip falls near that date, plan on the basis that the requirement returns rather than that it will be extended again.`,
+      },
+      { h2: "Which date matters" },
+      {
+        p: `What counts is the date you arrive in Korea, not the date you booked or the date you departed home. A flight that lands after the exemption period needs the permission even if it took off before.`,
+      },
+      { h2: "If you are travelling around the changeover" },
+      {
+        ul: [
+          `Apply anyway if your arrival is close to the date. It is valid for ${F.validYears} years, so an unnecessary application is not a loss.`,
+          `Do not rely on the airline to tell you. Carriers check on the day of departure, which is too late to fix.`,
+          `Check the official portal shortly before you travel — extensions and changes are announced there first.`,
+        ],
+      },
+      { note: `Exemption lists have been revised more than once, and the countries covered have changed each time. Treat any list you read elsewhere, including summaries like this one, as a pointer to the official page rather than a substitute for it.` },
+      {
+        source: {
+          label: "K-ETA official portal",
+          url: F.officialUrl,
+        },
+      },
+    ],
+  },
+  {
+    slug: "if-your-keta-is-denied",
+    nav: "If denied",
+    title: "What to do if your K-ETA is denied",
+    description:
+      "A denial does not automatically mean you cannot travel, but it does mean the online route is closed. What the next step actually is.",
+    blocks: [
+      {
+        p: `Most applications are decided within ${F.decisionTypical}. If the result is a denial, the practical position is that you cannot enter under the visa-waiver route and must apply for a visa instead.`,
+      },
+      { h2: "Reapplying rarely helps" },
+      {
+        p: `Submitting the same details again will normally produce the same outcome. If something was entered incorrectly — a passport number, a date of birth, a name spelled differently from the passport — that is worth correcting. Otherwise, the route is a visa application at a Korean diplomatic mission.`,
+      },
+      { h2: "Do not travel to test it" },
+      {
+        p: `Airlines check the status before boarding. Arriving at the airport with a denial on file means being refused at check-in, not at the border.`,
+      },
+      { note: `A denial is a decision about this application, not a permanent bar. A visa application is assessed separately and on its own documents.` },
+      {
+        source: {
+          label: "K-ETA official portal",
+          url: F.officialUrl,
+        },
       },
     ],
   },

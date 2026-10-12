@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/data/facts";
 import { LANGS, LANG_CODES } from "@/data/langs";
-import { PAGE_SLUGS } from "@/data/pages";
+import { PAGES } from "@/data/pages";
 
 /** ⚠️ output:"export" では必須。無いと「dynamic not configured」でビルドが落ちる。 */
 export const dynamic = "force-static";
@@ -13,11 +13,13 @@ export const dynamic = "force-static";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const d = new Date("2026-08-17");
+  /** 入国後の実用ページ（2026-10-12 追加・確認）。lastmod を実際の確認日にする */
+  const dPractical = new Date("2026-10-12");
   const out: MetadataRoute.Sitemap = [
     { url: `${SITE}/`, lastModified: d, changeFrequency: "weekly", priority: 1 },
-    ...PAGE_SLUGS.map((slug) => ({
-      url: `${SITE}/${slug}/`,
-      lastModified: d,
+    ...PAGES.map((p) => ({
+      url: `${SITE}/${p.slug}/`,
+      lastModified: p.checked ? dPractical : d,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
@@ -26,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const t = LANGS[lang];
     out.push({ url: `${SITE}/${lang}/`, lastModified: d, changeFrequency: "weekly", priority: 0.9 });
     for (const a of [...t.articles, ...t.pages]) {
-      out.push({ url: `${SITE}/${lang}/${a.slug}/`, lastModified: d, changeFrequency: "monthly", priority: 0.6 });
+      out.push({ url: `${SITE}/${lang}/${a.slug}/`, lastModified: "enSlug" in a && a.checked ? dPractical : d, changeFrequency: "monthly", priority: 0.6 });
     }
   }
   return out;

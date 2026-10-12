@@ -1,4 +1,5 @@
 import { FACTS as F } from "@/data/facts";
+import { PRACTICAL } from "@/data/pages-practical";
 
 /**
  * 英語（ルート）の下層ページ。uketa（eta-se.com）の言語ディレクトリと同じ13本構成に合わせる。
@@ -17,7 +18,11 @@ export type Block =
   | { ul: string[] }
   | { note: string }
   /** 出典リンク。数値・罰則を書いたページには必ず添える */
-  | { source: { label: string; url: string } };
+  | { source: { label: string; url: string } }
+  /** 同じ言語のページへのカード一覧（ハブページ用）。スラッグで指定し、タイトル・説明は相手ページから引く */
+  | { links: string[] };
+
+export type Faq = { q: string; a: string };
 
 export type Page = {
   slug: string;
@@ -25,15 +30,36 @@ export type Page = {
   nav: string;
   description: string;
   blocks: Block[];
+  /** 本文下の関連カードに優先して出すスラッグ。足りない分は一覧の前後で埋める（全ページに被リンクが回るように） */
+  related?: string[];
+  /** よくある質問。本文の後に表示し、FAQPage 構造化データも出す */
+  faq?: Faq[];
+  /** このページを公式で確認した日（表示用）。無ければ FACTS.updatedLabel */
+  checked?: string;
+  /** 入国後の実用ページ（ハブ以外）。トップの一覧には出さず、ハブと関連カードから辿らせる */
+  practical?: boolean;
 };
 
-export const PAGES: Page[] = [
+/**
+ * 関連カードの選び方（英語・各言語で共通）。
+ * ⚠️ 以前は全ページが「一覧の先頭6本」を出していたため、後ろのページはトップからしか張られていなかった。
+ *    明示した related → 一覧で自分の次から順に、で6本にする。
+ */
+export function pickRelated<T extends { slug: string }>(all: T[], self: string, related: string[] = [], n = 6): T[] {
+  const i = all.findIndex((p) => p.slug === self);
+  const ring = i < 0 ? all : [...all.slice(i + 1), ...all.slice(0, i)];
+  const first = related.map((s) => all.find((p) => p.slug === s)).filter((p): p is T => !!p && p.slug !== self);
+  return [...first, ...ring.filter((p) => p.slug !== self && !first.includes(p))].slice(0, n);
+}
+
+const CORE: Page[] = [
   {
     slug: "what-is-keta",
+    related: ["arriving-in-korea"],
     nav: "What is K-ETA",
     title: "What is K-ETA? Korea's travel authorisation explained",
     description:
-      "K-ETA is an electronic travel authorisation for visa-free travellers to South Korea. What it is, who it applies to, and why many nationalities do not need it right now.",
+      "K-ETA is an electronic travel authorisation for visa-free travellers to South Korea: what it is, who it applies to, and why many do not need it right now.",
     blocks: [
       {
         p: `K-ETA (Korea Electronic Travel Authorization) is an online permission that visa-free travellers normally obtain before boarding a flight to South Korea. It costs ${F.fee} (${F.feeUsdApprox}) and stays valid for ${F.validYears} years.`,
@@ -58,6 +84,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "do-i-need-keta",
+    related: ["arrival-card-and-e-gates", "travelling-with-children"],
     nav: "Do I need K-ETA?",
     title: "Do I need K-ETA? How to check whether you are exempt",
     description:
@@ -317,6 +344,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "faq",
+    related: ["arriving-in-korea", "arrival-card-and-e-gates"],
     nav: "FAQ",
     title: "K-ETA frequently asked questions",
     description:
@@ -344,10 +372,11 @@ export const PAGES: Page[] = [
   },
   {
     slug: "how-long-can-you-stay",
+    related: ["arriving-in-korea", "public-holidays"],
     nav: "How long you can stay",
     title: "How long can you stay in Korea? The K-ETA does not decide this",
     description:
-      "Unlike the NZeTA or eVisitor, a K-ETA does not set your permitted stay. The number comes from the visa-waiver arrangement with your country, and it ranges from 30 to 90 days.",
+      "A K-ETA does not set your permitted stay. The number comes from the visa-waiver arrangement with your country, and it ranges from 30 to 90 days.",
     blocks: [
       {
         p: `This is the question most guides answer wrongly, because they copy the format used for other travel authorisations. A K-ETA is permission to board and to be assessed on arrival. It does not contain a length of stay. Your permitted stay comes from the visa-waiver arrangement between Korea and the country that issued your passport, and it is typically somewhere in the range of ${F.stayRange}.`,
@@ -379,6 +408,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "leaving-and-returning",
+    related: ["arriving-in-korea", "tax-refund-for-tourists", "airport-security-liquids"],
     nav: "Leaving and returning",
     title: "Leaving Korea and coming back on the same K-ETA",
     description:
@@ -415,10 +445,11 @@ export const PAGES: Page[] = [
   },
   {
     slug: "passport-and-details",
+    related: ["arriving-in-korea", "arrival-card-and-e-gates"],
     nav: "Passport and details",
     title: "Your K-ETA is tied to one passport",
     description:
-      "The K-ETA is linked to the passport used in the application. Renewing your passport ends it early, and a mismatch between your details and the record stops you at check-in.",
+      "The K-ETA is linked to the passport you applied with. A renewed passport ends it early, and mismatched details stop you at check-in.",
     blocks: [
       {
         p: `A K-ETA is valid for ${F.validYears} years, but there is a condition that catches people out: it is attached to the passport you applied with. If that passport is replaced, the authorisation stops being usable even though the ${F.validYears} years have not elapsed.`,
@@ -452,6 +483,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "border-questions",
+    related: ["arriving-in-korea", "arrival-card-and-e-gates", "bringing-medicines"],
     nav: "At the border",
     title: "What happens when you arrive in Korea",
     description:
@@ -496,6 +528,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "quarantine",
+    related: ["arriving-in-korea", "bringing-medicines", "customs-allowances"],
     nav: "Quarantine",
     title: "Korean quarantine: meat and plant products, and the fine for not declaring",
     description:
@@ -536,6 +569,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "customs-allowances",
+    related: ["arriving-in-korea", "money-and-tipping", "tax-refund-for-tourists", "smoking-vaping-and-alcohol"],
     nav: "Customs allowances",
     title: "Korean duty-free allowances for arriving travellers",
     description:
@@ -569,6 +603,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "if-you-are-exempt",
+    related: ["arriving-in-korea", "arrival-card-and-e-gates"],
     nav: "If you are exempt",
     title: `What to do if your country is exempt from the K-ETA until ${F.exemptionUntil}`,
     description:
@@ -613,6 +648,7 @@ export const PAGES: Page[] = [
   },
   {
     slug: "transit-through-korea",
+    related: ["arriving-in-korea", "airport-security-liquids"],
     nav: "Transit",
     title: "Changing planes in Korea: do you need a K-ETA?",
     description:
@@ -709,7 +745,7 @@ export const PAGES: Page[] = [
     nav: "Which one do I need?",
     title: "Which travel authorisation do you need? NZeTA, eVisitor, K-ETA, ESTA and the others compared",
     description:
-      "They have similar names and very different rules. Which scheme applies to which destination, what each one costs, and the mistakes that come from mixing them up.",
+      "Similar names, very different rules. Which scheme applies to which destination, what each costs, and the mistakes that come from mixing them up.",
     blocks: [
       {
         p: `Electronic travel authorisations look interchangeable from the outside. They are not. Each country runs its own scheme, with its own eligibility list, its own price, and its own idea of what the document even is — some are visas, some explicitly are not.`,
@@ -832,6 +868,14 @@ export const PAGES: Page[] = [
       },
     ],
   },
+];
+
+/** 実用ページは about/privacy/terms の手前に差し込む（一覧の並び＝関連カードの巡回順） */
+const LEGAL = ["about", "privacy", "terms"];
+export const PAGES: Page[] = [
+  ...CORE.filter((p) => !LEGAL.includes(p.slug)),
+  ...PRACTICAL,
+  ...CORE.filter((p) => LEGAL.includes(p.slug)),
 ];
 
 export const PAGE_SLUGS = PAGES.map((p) => p.slug);

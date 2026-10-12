@@ -11,13 +11,33 @@ export type Article = {
   slug: string;
   title: string;
   description: string;
-  /** 見出しと本文の配列。h2 と 段落・箇条書きだけで構成する（凝った装飾は入れない） */
+  /** 見出しと本文の配列。h2 と 段落・箇条書きだけで構成する（凝った装飾は入れない）。
+      source＝出典リンク（数値を書いたら必ず添える）／links＝同じ言語のページへのカード（ハブ用・スラッグ指定） */
   blocks: Array<
     | { h2: string }
     | { p: string }
     | { ul: string[] }
     | { note: string }
+    | { source: { label: string; url: string } }
+    | { links: string[] }
   >;
+  /** 対応する英語ページのスラッグ。これがあるページだけ hreflang で言語版どうしを相互に結ぶ */
+  enSlug?: string;
+  /** 関連カードに優先して出すスラッグ（同じ言語内） */
+  related?: string[];
+  /** よくある質問（本文の後に表示＋FAQPage 構造化データ） */
+  faq?: Array<{ q: string; a: string }>;
+  /** このページを公式で確認した日（現地語表記）。無ければ ui.updatedLabel */
+  checked?: string;
+  /** 入国後の実用ページ（ハブ以外）。言語トップの一覧には出さない */
+  practical?: boolean;
+};
+
+/** 入国後の実用ページ一式（言語ごとに data/langs/{code}-practical.ts）。index.ts で articles に合流させる */
+export type PracticalPack = {
+  /** 「よくある質問」「出典」の現地語ラベル */
+  ui: { faq: string; source: string; related: string };
+  articles: Article[];
 };
 
 export type LangContent = {
@@ -62,6 +82,8 @@ export type LangContent = {
   pages: Article[];
   /** 下層記事 */
   articles: Article[];
+  /** 実用ページ用の現地語ラベル（index.ts で合流時に入る） */
+  practicalUi?: PracticalPack["ui"];
   /** UIの共通語。⚠️ updatedLabel は日付の**表記だけ**を現地語にするための任意項目。
       値そのものは FACTS.updatedLabel と同じ日付を指すこと（別の日付を書かない）。 */
   ui: {

@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import StickyCta from "@/components/StickyCta";
-import { FACTS as F, SITE } from "@/data/facts";
-import { PAGES } from "@/data/pages";
+import DocBlocks from "@/components/DocBlocks";
+import DocFaq from "@/components/DocFaq";
+import { FACTS as F, OG_IMAGES, SITE } from "@/data/facts";
+import { LANGS, LANG_CODES } from "@/data/langs";
+import { PAGES, pickRelated } from "@/data/pages";
 
 /*
   英語の下層ページ（/what-is-keta/ など12本）。
@@ -21,15 +24,28 @@ export function enDocMetadata(slug: string): Metadata {
   return {
     title: { absolute: `${doc.title} | K-ETA Guide` },
     description: doc.description,
-    alternates: { canonical: `${SITE}/${slug}/` },
-    openGraph: { title: doc.title, description: doc.description, locale: "en", type: "article" },
+    alternates: {
+      canonical: `${SITE}/${slug}/`,
+      // 対応する翻訳（enSlug が一致する言語ページ）があるときだけ hreflang を出す
+      languages: {
+        en: `${SITE}/${slug}/`,
+        ...Object.fromEntries(
+          LANG_CODES.flatMap((c) => {
+            const m = LANGS[c].articles.find((a) => a.enSlug === slug);
+            return m ? [[LANGS[c].htmlLang, `${SITE}/${c}/${m.slug}/`]] : [];
+          }),
+        ),
+        "x-default": `${SITE}/${slug}/`,
+      },
+    },
+    openGraph: { title: doc.title, description: doc.description, locale: "en", type: "article", images: OG_IMAGES },
   };
 }
 
 export default function EnglishDoc({ slug }: { slug: string }) {
   const doc = find(slug);
   if (!doc) return null;
-  const others = PAGES.filter((p) => p.slug !== slug && !["privacy", "terms", "about"].includes(p.slug)).slice(0, 6);
+  const others = pickRelated(PAGES.filter((p) => !["privacy", "terms", "about"].includes(p.slug)), slug, doc.related);
 
   const ld = {
     "@context": "https://schema.org",
@@ -59,42 +75,25 @@ export default function EnglishDoc({ slug }: { slug: string }) {
           <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,.85)" }}>
             {doc.description}
           </p>
-          <p className="mt-4 text-xs" style={{ color: "rgba(255,255,255,.7)" }}>Checked {F.updatedLabel}</p>
+          <p className="mt-4 text-xs" style={{ color: "rgba(255,255,255,.7)" }}>Checked {doc.checked ?? F.updatedLabel}</p>
         </div>
       </section>
 
       <article className="max-w-3xl mx-auto px-6 py-14 md:py-16">
-        {doc.blocks.map((b, i) => {
-          if ("h2" in b) return <h2 key={i} className="heading-band text-xl md:text-2xl mt-10 first:mt-0 reveal">{b.h2}</h2>;
-          if ("p" in b) return <p key={i} className="mt-4 leading-relaxed reveal">{b.p}</p>;
-          if ("ul" in b)
-            return (
-              <ul key={i} className="mt-4 space-y-2 leading-relaxed reveal" style={{ paddingLeft: "1.1rem", listStyle: "disc" }}>
-                {b.ul.map((x) => <li key={x}>{x}</li>)}
-              </ul>
-            );
-          if ("source" in b)
-            // 出典リンク。数値を書いたページには必ず一次情報へのリンクを添える
-            return (
-              <p key={i} className="mt-4 text-xs reveal" style={{ color: "#667" }}>
-                Source:{" "}
-                <a href={b.source.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>
-                  {b.source.label}
-                </a>
-              </p>
-            );
-          return (
-            <div key={i} className="card mt-6 reveal" style={{ background: "var(--color-bg-soft)" }}>
-              <p className="text-sm leading-relaxed">{b.note}</p>
-            </div>
-          );
-        })}
+        <DocBlocks
+          blocks={doc.blocks}
+          cards={PAGES.map((p) => ({ slug: p.slug, title: p.nav, description: p.description }))}
+          base="/"
+          sourceLabel="Source"
+        />
 
         <div className="mt-12 reveal">
           <a href={F.officialUrl} target="_blank" rel="noopener noreferrer" className="cta-button-red">
             Apply on the official K-ETA site
           </a>
         </div>
+
+        <DocFaq items={doc.faq} heading="Common questions" />
 
         <div className="mt-14">
           <h2 className="heading-band text-xl md:text-2xl reveal">More about K-ETA</h2>

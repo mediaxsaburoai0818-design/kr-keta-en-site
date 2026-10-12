@@ -3,6 +3,7 @@ import { Noto_Sans, Noto_Serif } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { OG_IMAGES } from "@/data/facts";
 
 const notoSans = Noto_Sans({
   subsets: ["latin", "latin-ext"],
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
       "Many nationalities are exempt from K-ETA until 31 December 2026. Here is how to check whether that includes you.",
     locale: "en",
     type: "website",
+    images: OG_IMAGES,
   },
 };
 

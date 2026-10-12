@@ -36,6 +36,45 @@ export const FACTS = {
   customsPerfumeMl: 100,
   /** 19歳未満（生年基準）は酒・たばこの免税対象外 */
   customsAgeMin: 19,
+
+  /* ── 入国後の実用ページ（ETA横展開バッチ・2026-10-12 公式で裏取り）
+     ファクト・出典URL＝~/projects/kr-entry-facts-2026-10-12.md（生ログ raw-A〜D） ── */
+  /** 到着時の指紋・顔情報の提供（出入国管理法12条の2）。17歳未満は免除 */
+  biometricsMinAge: 17,
+  /** 到着自動審査（K-自動入国審査）: 42か国・地域の17歳以上の無査証入国者。仁川T1/T2・済州で当日登録 */
+  egateMinAge: 17,
+  egateCountries: 42,
+  egateSince: "16 March 2026",
+  /** K-ETAの年齢免除（2023-07-03〜・入国日基準） */
+  ketaChildMaxAge: 17,
+  ketaSeniorMinAge: 65,
+  /** 電子入国申告書（e-Arrival card）: 到着3日前（KST・到着日を含む）から。提出から72時間で失効 */
+  earrivalDaysBefore: 3,
+  earrivalValidHours: 72,
+  /** 機内持込液体物（仁川空港公社） */
+  liquidMl: "100 ml",
+  liquidBag: "1 litre",
+  babyItemsMaxAge: 6,
+  /** モバイルバッテリー（国土交通部 2026-04-20〜） */
+  powerBankMax: 2,
+  powerBankWh: "160 Wh",
+  powerBankSince: "20 April 2026",
+  /** 現金等の申告（関税庁）: 合計がこの額を「超える」と申告 */
+  cashDeclareOver: "US$10,000",
+  cashAdminFineMax: "KRW 50 million",
+  cashCriminalOver: "US$30,000",
+  /** 外国人観光客の税金還付（特例規定・2024-01-01改正値） */
+  taxRefundMin: "KRW 15,000",
+  immediateRefundPerPurchase: "KRW 1,000,000",
+  immediateRefundTotal: "KRW 5,000,000",
+  taxRefundExportMonths: 3,
+  downtownRefundCap: "KRW 6,000,000",
+  /** 喫煙・飲酒 */
+  smokingFine: "KRW 100,000",
+  bacLimit: "0.03%",
+  /** 自家用医薬品（関税庁）: 6本または用法上3か月分 */
+  medsBottles: 6,
+  medsMonths: 3,
   updated: "2026-08-17",
   updatedLabel: "17 August 2026",
   /** 申請先。公式（.go.kr）以外に窓口は無いので、CTAは全部ここを指す */
@@ -45,3 +84,6 @@ export const FACTS = {
 
 /** canonical・OG・sitemap で使う本番URL（2026-08-17 okina取得）。 */
 export const SITE = "https://k-eta-online.com";
+
+/** og:image（全ページ共通・ヒーロー画像）。公開前チェックで全ページに必須 */
+export const OG_IMAGES = [{ url: `${SITE}/images/hero-kr.jpg`, width: 1920, height: 901 }];

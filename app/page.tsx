@@ -3,9 +3,9 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import StickyCta from "@/components/StickyCta";
 import Link from "next/link";
-import { FACTS as F, SITE } from "@/data/facts";
+import { FACTS as F, OG_IMAGES, SITE } from "@/data/facts";
 import { PAGES } from "@/data/pages";
-import { LANG_CODES } from "@/data/langs";
+import { LANGS, LANG_CODES } from "@/data/langs";
 
 /*
   構成・UIは nz-eta-site / au-evisitor-en-site と揃えている（okina指摘済みの事項は最初から反映）:
@@ -24,17 +24,19 @@ export const metadata: Metadata = {
     absolute: `K-ETA: who still needs it, and who is exempt until ${F.exemptionUntil} | K-ETA Guide 2026`,
   },
   description:
-    `A plain-English guide to Korea's K-ETA: many nationalities — including the US, UK, Germany, Australia and Canada — are temporarily exempt until ${F.exemptionUntil}. If you do need one it costs ${F.fee} (${F.feeUsdApprox}), lasts ${F.validYears} years and is reviewed within about ${F.decisionTypical}.`,
+    `Many nationalities are exempt from K-ETA until ${F.exemptionUntil}. If you do need one, it costs ${F.fee}, lasts ${F.validYears} years and is decided in about ${F.decisionTypical}.`,
   alternates: {
     canonical: `${SITE}/`,
     // ⚠️ 言語版を足したら自動で増える（手書きしない）
-    languages: { en: `${SITE}/`, ...Object.fromEntries(LANG_CODES.map((c) => [c, `${SITE}/${c}/`])) },
+    // hreflang 値は言語トップと揃えて htmlLang（zh-Hans 等）を使う
+    languages: { en: `${SITE}/`, ...Object.fromEntries(LANG_CODES.map((c) => [LANGS[c].htmlLang, `${SITE}/${c}/`])), "x-default": `${SITE}/` },
   },
   openGraph: {
     title: `K-ETA: who still needs it, and who is exempt until ${F.exemptionUntil}`,
     description: `The exemption ends ${F.exemptionUntil}. What K-ETA costs, how long it lasts, and how the permitted stay is decided.`,
     locale: "en",
     type: "website",
+    images: OG_IMAGES,
   },
 };
 
@@ -349,7 +351,7 @@ export default function Home() {
       <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
         <h2 className="heading-band text-2xl md:text-3xl reveal">Read more about K-ETA</h2>
         <div className="mt-8 grid md:grid-cols-3 gap-5">
-          {PAGES.filter((p) => !["privacy", "terms", "about"].includes(p.slug)).map((p, i) => (
+          {PAGES.filter((p) => !p.practical && !["privacy", "terms", "about"].includes(p.slug)).map((p, i) => (
             <Link key={p.slug} href={`/${p.slug}/`} className={`feature-card no-underline reveal reveal-delay-${(i % 4) + 1}`}>
               <h3 className="font-bold" style={{ color: "var(--color-navy)" }}>{p.nav}</h3>
               <p className="mt-2 text-sm leading-relaxed">{p.description}</p>

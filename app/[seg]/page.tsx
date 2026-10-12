@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { FACTS as F, SITE } from "@/data/facts";
+import { FACTS as F, OG_IMAGES, SITE } from "@/data/facts";
 import { LANGS, LANG_CODES } from "@/data/langs";
 import { PAGE_SLUGS } from "@/data/pages";
 import EnglishDoc, { enDocMetadata } from "./english-doc";
@@ -32,9 +32,9 @@ export async function generateMetadata({ params }: { params: Promise<{ seg: stri
     description: t.meta.description,
     alternates: {
       canonical: `${SITE}/${lang}/`,
-      languages: { en: `${SITE}/`, ...Object.fromEntries(LANG_CODES.map((c) => [LANGS[c].htmlLang, `${SITE}/${c}/`])) },
+      languages: { en: `${SITE}/`, ...Object.fromEntries(LANG_CODES.map((c) => [LANGS[c].htmlLang, `${SITE}/${c}/`])), "x-default": `${SITE}/` },
     },
-    openGraph: { title: t.meta.title, description: t.meta.description, locale: t.htmlLang, type: "website" },
+    openGraph: { title: t.meta.title, description: t.meta.description, locale: t.htmlLang, type: "website", images: OG_IMAGES },
   };
 }
 
@@ -206,7 +206,7 @@ export default async function LangHome({ params }: { params: Promise<{ seg: stri
       <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
         <h2 className="heading-band text-2xl md:text-3xl reveal">{t.ui.articles}</h2>
         <div className="mt-8 grid md:grid-cols-3 gap-5">
-          {t.articles.map((a, i) => (
+          {t.articles.filter((a) => !a.practical).map((a, i) => (
             <Link key={a.slug} href={`/${lang}/${a.slug}/`} className={`feature-card no-underline reveal reveal-delay-${i + 1}`}>
               <h3 className="font-bold" style={{ color: "var(--color-navy)" }}>{a.title}</h3>
               <p className="mt-2 text-sm leading-relaxed">{a.description}</p>

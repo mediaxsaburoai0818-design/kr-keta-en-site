@@ -8,7 +8,7 @@ const OUT = "out";
 // ディレクトリ名（=言語コード）と、HTMLに入れる lang 値は必ずしも同じでない。
 // 例: /zh/ の <html lang> は "zh-Hans"。言語ファイルの htmlLang をそのまま使う。
 const langs = readdirSync("data/langs")
-  .filter((f) => f.endsWith(".ts") && !f.startsWith("_") && f !== "index.ts")
+  .filter((f) => f.endsWith(".ts") && !f.startsWith("_") && f !== "index.ts" && !f.endsWith("-practical.ts"))
   .map((f) => {
     const dir = f.replace(/\.ts$/, "");
     const m = readFileSync(join("data/langs", f), "utf8").match(/htmlLang:\s*"([^"]+)"/);

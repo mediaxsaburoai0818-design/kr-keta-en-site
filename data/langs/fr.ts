@@ -26,7 +26,7 @@ export const fr: LangContent = {
   audience: "France",
   meta: {
     title: `Les passeports français sont dispensés de K-ETA jusqu'au ${EXEMPT_UNTIL}`,
-    description: `La Corée du Sud suspend l'obligation de K-ETA pour la France jusqu'au ${EXEMPT_UNTIL}. D'ici là, vous embarquez sans demande. Ensuite, l'obligation devrait revenir : ${F.fee}, valable ${F.validYears} ans. Ce qu'il faut faire maintenant et après.`,
+    description: `Les passeports français sont dispensés de K-ETA jusqu'au ${EXEMPT_UNTIL}. Ensuite, l'obligation devrait revenir : ${F.fee}, valable ${F.validYears} ans.`,
   },
   header: {
     site: "Guide K-ETA",

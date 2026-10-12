@@ -26,7 +26,7 @@ export const de: LangContent = {
   audience: "Deutschland",
   meta: {
     title: `Deutsche brauchen bis ${EXEMPT_UNTIL} keine K-ETA — und danach?`,
-    description: `Südkorea setzt die K-ETA-Pflicht für deutsche Reisepässe bis zum ${EXEMPT_UNTIL} aus. Bis dahin reisen Sie ohne Antrag. Danach ist wieder mit der Pflicht zu rechnen: ${F.fee}, ${F.validYears} Jahre gültig. Was Sie jetzt und was Sie danach tun sollten.`,
+    description: `Für deutsche Reisepässe ist die K-ETA-Pflicht bis zum ${EXEMPT_UNTIL} ausgesetzt. Danach ist wieder mit ihr zu rechnen: ${F.fee}, ${F.validYears} Jahre gültig.`,
   },
   header: {
     site: "K-ETA Ratgeber",

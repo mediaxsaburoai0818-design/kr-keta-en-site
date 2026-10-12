@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { FACTS as F, SITE } from "@/data/facts";
+import DocBlocks from "@/components/DocBlocks";
+import DocFaq from "@/components/DocFaq";
+import { FACTS as F, OG_IMAGES, SITE } from "@/data/facts";
 import { LANGS, LANG_CODES } from "@/data/langs";
+import { pickRelated } from "@/data/pages";
 
 /*
   言語ディレクトリ配下の記事・基礎ページ（/de/datenschutz/ /de/evisitor-oder-eta/ など）。
@@ -28,21 +31,37 @@ function find(lang: string, slug: string) {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ seg: string; slug: string }> }): Promise<Metadata> {
-  const { seg, slug } = await params;
-  const lang = seg;
+  const { seg: lang, slug } = await params;
   const { doc } = find(lang, slug);
   if (!doc) return {};
   return {
     title: { absolute: `${doc.title} | ${LANGS[lang].header.site}` },
     description: doc.description,
-    alternates: { canonical: `${SITE}/${lang}/${slug}/` },
-    openGraph: { title: doc.title, description: doc.description, locale: LANGS[lang].htmlLang, type: "article" },
+    alternates: {
+      canonical: `${SITE}/${lang}/${slug}/`,
+      // ⚠️ 言語ごとにスラッグが違うので、英語ページとの対応（enSlug）がある記事だけ相互に結ぶ。
+      //    同じ enSlug を持つ他言語版も並べる（de⇄ko なども相互に示す）
+      ...("enSlug" in doc && doc.enSlug
+        ? {
+            languages: {
+              en: `${SITE}/${doc.enSlug}/`,
+              ...Object.fromEntries(
+                LANG_CODES.flatMap((c) => {
+                  const m = LANGS[c].articles.find((a) => a.enSlug === doc.enSlug);
+                  return m ? [[LANGS[c].htmlLang, `${SITE}/${c}/${m.slug}/`]] : [];
+                }),
+              ),
+              "x-default": `${SITE}/${doc.enSlug}/`,
+            },
+          }
+        : {}),
+    },
+    openGraph: { title: doc.title, description: doc.description, locale: LANGS[lang].htmlLang, type: "article", images: OG_IMAGES },
   };
 }
 
 export default async function LangDoc({ params }: { params: Promise<{ seg: string; slug: string }> }) {
-  const { seg, slug } = await params;
-  const lang = seg;
+  const { seg: lang, slug } = await params;
   const { t, doc, isArticle } = find(lang, slug);
   if (!doc) return null;
 
@@ -69,36 +88,29 @@ export default async function LangDoc({ params }: { params: Promise<{ seg: strin
           </nav>
           <h1 className="mt-4 text-2xl md:text-4xl font-bold leading-tight" style={{ color: "#fff" }}>{doc.title}</h1>
           <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,.85)" }}>{doc.description}</p>
-          <p className="mt-4 text-xs" style={{ color: "rgba(255,255,255,.7)" }}>{t.ui.updated} {t.ui.updatedLabel ?? F.updatedLabel}</p>
+          <p className="mt-4 text-xs" style={{ color: "rgba(255,255,255,.7)" }}>{t.ui.updated} {doc.checked ?? t.ui.updatedLabel ?? F.updatedLabel}</p>
         </div>
       </section>
 
       <article className="max-w-3xl mx-auto px-6 py-14 md:py-16">
-        {doc.blocks.map((b, i) => {
-          if ("h2" in b) return <h2 key={i} className="heading-band text-xl md:text-2xl mt-10 first:mt-0 reveal">{b.h2}</h2>;
-          if ("p" in b) return <p key={i} className="mt-4 leading-relaxed reveal">{b.p}</p>;
-          if ("ul" in b)
-            return (
-              <ul key={i} className="mt-4 space-y-2 leading-relaxed reveal" style={{ paddingLeft: "1.1rem", listStyle: "disc" }}>
-                {b.ul.map((x) => <li key={x}>{x}</li>)}
-              </ul>
-            );
-          return (
-            <div key={i} className="card mt-6 reveal" style={{ background: "var(--color-bg-soft)" }}>
-              <p className="text-sm leading-relaxed">{b.note}</p>
-            </div>
-          );
-        })}
+        <DocBlocks
+          blocks={doc.blocks}
+          cards={[...t.articles, ...t.pages]}
+          base={`/${lang}/`}
+          sourceLabel={t.practicalUi?.source ?? "Source"}
+        />
 
         <div className="mt-12 reveal">
           <a href={F.officialUrl} target="_blank" rel="noopener noreferrer" className="cta-button-red">{t.cta.button}</a>
         </div>
 
+        <DocFaq items={doc.faq} heading={t.practicalUi?.faq ?? "FAQ"} />
+
         {isArticle && (
           <div className="mt-14">
             <h2 className="heading-band text-xl md:text-2xl reveal">{t.ui.articles}</h2>
             <div className="mt-6 grid md:grid-cols-2 gap-5">
-              {t.articles.filter((a) => a.slug !== slug).map((a) => (
+              {pickRelated(t.articles, slug, doc.related).map((a) => (
                 <Link key={a.slug} href={`/${lang}/${a.slug}/`} className="feature-card no-underline reveal">
                   <h3 className="font-bold" style={{ color: "var(--color-navy)" }}>{a.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed">{a.description}</p>

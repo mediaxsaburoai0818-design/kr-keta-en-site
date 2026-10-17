@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Reveal from "@/components/Reveal";
-import StickyCta from "@/components/StickyCta";
+import HomeChrome from "@/components/HomeChrome";
+import { HOME_TOP, HOME_BOTTOM } from "@/lib/eta-home";
+import "./eta-home.css";
 import Link from "next/link";
 import { FACTS as F, OG_IMAGES, SITE } from "@/data/facts";
 import { PAGES } from "@/data/pages";
 import { LANGS, LANG_CODES } from "@/data/langs";
 
 /*
+  ⚠️ 2026-10-17 デザインリニューアル（okina 選択：すべて B ＝ 写真 北村の韓屋とNソウルタワー／右上 筆文字「안녕하세요」／配色 Celadon & Brass）。
+     正は ~/projects/keta-redesign/build。HOME_TOP / HOME_BOTTOM / eta-home.css / public/home は
+     ~/projects/keta-redesign/gen-home.py が生成する（手で直さない）。ESTA（esta-hr.com）・カナダと同じ方式。
+     上＝新デザイン（スライダー4枚）、中＝旧TOPの本文のうちデザインに無いもの（.xsec）、下＝CTA＋フッター。
+     TOP では layout の Header/Footer は出さない（components/NotOnHome.tsx）。
+
+  （以下は旧デザインのときのメモ）
   構成・UIは nz-eta-site / au-evisitor-en-site と揃えている（okina指摘済みの事項は最初から反映）:
     ・「」の角飾りは .feature-card だけ ・見出しの罫線は見出しの下
     ・日付は "17 August 2026" 形式 ・reveal / 追従CTA / hero-zoom
@@ -39,13 +46,6 @@ export const metadata: Metadata = {
     images: OG_IMAGES,
   },
 };
-
-const STATS = [
-  { v: F.fee, l: "What you pay", s: F.feeUsdApprox },
-  { v: `${F.validYears} years`, l: "Valid for", s: "Multiple entries" },
-  { v: F.decisionTypical, l: "Review time", s: "Apply well before you fly" },
-  { v: "Exempt", l: `Until ${F.exemptionUntil}`, s: "For many nationalities" },
-];
 
 const FEATURES = [
   {
@@ -122,274 +122,151 @@ export default function Home() {
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
   };
+  // 言語メニュー（data/langs に言語を足せば自動で増える）と確認日は facts / langs から差し込む
+  const langItems =
+    `<li><a href="/" hreflang="en">English</a></li>` +
+    LANG_CODES.map((c) => `<li><a href="/${c}/" hreflang="${LANGS[c].htmlLang}">${LANGS[c].label}</a></li>`).join("");
+  const top = HOME_TOP.replace("<!--LANGS-->", langItems);
+  const bottom = HOME_BOTTOM.replace("<!--UPDATED-->", F.updatedLabel);
+  const readMore = PAGES.filter((p) => !p.practical && !["privacy", "terms", "about"].includes(p.slug));
 
   return (
-    <>
+    <div className="etahome" data-c="B" data-pat="1">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
-      <Reveal />
-      <StickyCta />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&family=Nanum+Brush+Script&display=swap" rel="stylesheet" precedence="default" />
+      <div className="main-wrap" dangerouslySetInnerHTML={{ __html: top }} />
 
-      {/* ── ヒーロー ── */}
-      <section className="hero">
-        <div className="hero-media">
-          <Image
-            src="/images/hero-kr.webp"
-            alt="Sunlit Korean palace roof with the Seoul skyline in the distance"
-            fill
-            priority
-            className="hero-img hero-zoom"
-          />
-        </div>
-        <div className="hero-scrim" />
-        <div className="hero-inner max-w-6xl mx-auto px-6 py-20 lg:py-28">
-          <span className="eyebrow">Korea · Electronic Travel Authorization</span>
-          <h1
-            className="mt-5 text-3xl md:text-5xl font-bold leading-tight"
-            style={{ color: "#ffffff", maxWidth: "24ch" }}
-          >
-            Most travellers do{" "}
-            <span style={{ color: "var(--color-red-light)" }}>not</span> need a K-ETA until{" "}
-            {F.exemptionUntil}
-          </h1>
-          <p
-            className="mt-5 text-base md:text-lg leading-relaxed"
-            style={{ color: "rgba(255,255,255,.92)", maxWidth: "54ch" }}
-          >
-            Korea has suspended the K-ETA requirement for the currently exempt countries and regions
-            — the US, UK, Germany, Australia, Canada, Taiwan and others — until {F.exemptionUntil}.
-            Here is how to check whether that includes you, and what to do if it does not.
+      {/* ── 必要かどうかの判定（K-ETA固有の主役）＋3つの要点 ── */}
+      <section id="who-needs-it" className="section xsec xsec-alt">
+        <div className="container">
+          <span className="eyebrow">Who needs it now?</span>
+          <h2>Do you need a K-ETA?</h2>
+          <p className="xlead">
+            Start here. The answer depends on your nationality and on a suspension that has already been extended
+            more than once.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={F.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-red">
-              Check the official list
-            </a>
-            <a href="#need-it" className="btn-outline-light">
-              Do I need one?
-            </a>
-          </div>
-          <p className="mt-6 text-xs" style={{ color: "rgba(255,255,255,.78)" }}>
-            Independent guide · not affiliated with the Korean Government · updated {F.updatedLabel}
-          </p>
-        </div>
-      </section>
-
-      {/* ── 統計カード ── */}
-      <section
-        className="max-w-6xl mx-auto px-6"
-        style={{ marginTop: "-3rem", position: "relative", zIndex: 2 }}
-      >
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {STATS.map((s, i) => (
-            <div key={s.l} className={`card stat-card text-center reveal reveal-delay-${i + 1}`}>
-              <p className="stat-num">{s.v}</p>
-              <p className="stat-label">{s.l}</p>
-              <p className="text-xs mt-1" style={{ color: "var(--color-text-light)" }}>
-                {s.s}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 必要かどうかの判定（K-ETA固有の主役）── */}
-      <section id="need-it" className="max-w-5xl mx-auto px-6 py-16 md:py-20">
-        <h2 className="heading-band text-2xl md:text-3xl reveal">Do you need a K-ETA?</h2>
-        <p className="mt-5 leading-relaxed reveal reveal-delay-1" style={{ maxWidth: "70ch" }}>
-          Start here. The answer depends on your nationality and on a suspension that has already
-          been extended more than once.
-        </p>
-        <div className="mt-7 card reveal reveal-delay-2" style={{ padding: "1.6rem" }}>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm" style={{ borderCollapse: "collapse", minWidth: "40rem" }}>
+          <div className="xtable-wrap">
+            <table className="xtable">
               <thead>
-                <tr style={{ background: "var(--color-navy)", color: "#fff" }}>
-                  <th className="text-left px-4 py-3">Your situation</th>
-                  <th className="text-left px-4 py-3">K-ETA needed?</th>
-                  <th className="text-left px-4 py-3">What to do</th>
+                <tr>
+                  <th>Your situation</th>
+                  <th>K-ETA needed?</th>
+                  <th>What to do</th>
                 </tr>
               </thead>
               <tbody>
-                <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                  <td className="px-4 py-3 font-medium">
-                    Your nationality is on the temporary exemption list (US, UK, Germany, Australia,
-                    Canada, Taiwan and others)
+                <tr>
+                  <td data-label="Situation">
+                    Your nationality is on the temporary exemption list (US, UK, Germany, Australia, Canada, Taiwan and
+                    others)
                   </td>
-                  <td className="px-4 py-3 font-bold" style={{ color: "var(--color-gold-dark)" }}>
-                    No — until {F.exemptionUntil}
-                  </td>
-                  <td className="px-4 py-3">
-                    Travel without one. Apply only if you want to skip the arrival card.
-                  </td>
+                  <td data-label="Needed?" className="xfree">No — until {F.exemptionUntil}</td>
+                  <td data-label="What to do">Travel without one. Apply only if you want to skip the arrival card.</td>
                 </tr>
-                <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                  <td className="px-4 py-3 font-medium">
-                    You are from a visa-waiver country that is not on the exemption list
-                  </td>
-                  <td className="px-4 py-3 font-bold" style={{ color: "var(--color-red-vivid)" }}>
-                    Yes
-                  </td>
-                  <td className="px-4 py-3">
-                    Apply on {F.officialHost} before you fly — {F.fee}.
-                  </td>
+                <tr>
+                  <td data-label="Situation">You are from a visa-waiver country that is not on the exemption list</td>
+                  <td data-label="Needed?" className="xyes">Yes</td>
+                  <td data-label="What to do">Apply on {F.officialHost} before you fly — {F.fee}.</td>
                 </tr>
-                <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                  <td className="px-4 py-3 font-medium">You are travelling on or after 1 January 2027</td>
-                  <td className="px-4 py-3 font-bold">Assume yes</td>
-                  <td className="px-4 py-3">
-                    The suspension expires {F.exemptionUntil}. Re-check the official list close to
-                    departure.
+                <tr>
+                  <td data-label="Situation">You are travelling on or after 1 January 2027</td>
+                  <td data-label="Needed?"><strong>Assume yes</strong></td>
+                  <td data-label="What to do">
+                    The suspension expires {F.exemptionUntil}. Re-check the official list close to departure.
                   </td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 font-medium">
-                    You are not from a visa-waiver country
-                  </td>
-                  <td className="px-4 py-3 font-bold">Not applicable</td>
-                  <td className="px-4 py-3">You need a visa, not a K-ETA.</td>
+                  <td data-label="Situation">You are not from a visa-waiver country</td>
+                  <td data-label="Needed?"><strong>Not applicable</strong></td>
+                  <td data-label="What to do">You need a visa, not a K-ETA.</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
-        <p className="mt-6 leading-relaxed text-sm reveal reveal-delay-3" style={{ maxWidth: "70ch" }}>
-          Published reports disagree on how many countries the suspension covers, so we do not quote
-          a number here — the list on {F.officialHost} is the only authority. Checked{" "}
-          {F.updatedLabel}.
-        </p>
-      </section>
-
-      {/* ── What is ── */}
-      <section style={{ background: "var(--color-bg-soft)" }}>
-        <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
-          <h2 className="heading-band text-2xl md:text-3xl reveal">What is the K-ETA?</h2>
-          <p className="mt-5 leading-relaxed reveal reveal-delay-1" style={{ maxWidth: "70ch" }}>
-            The Korea Electronic Travel Authorization is a pre-travel permission for people who may
-            already enter Korea without a visa. It is checked by the airline before boarding, costs{" "}
-            {F.fee} and lasts {F.validYears} years.
+          <p className="xnote">
+            Published reports disagree on how many countries the suspension covers, so we do not quote a number here —
+            the list on {F.officialHost} is the only authority. Checked {F.updatedLabel}.
           </p>
-          <div className="mt-10 grid md:grid-cols-3 gap-5">
-            {FEATURES.map((f, i) => (
-              <div key={f.h} className={`feature-card reveal reveal-delay-${i + 1}`}>
-                <h3 className="font-bold" style={{ color: "var(--color-navy)" }}>
-                  {f.h}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed">{f.p}</p>
+          <div className="xcards x3">
+            {FEATURES.map((f) => (
+              <div key={f.h} className="xcard">
+                <h3>{f.h}</h3>
+                <p>{f.p}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 申請手順 ── */}
-      <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
-        <h2 className="heading-band text-2xl md:text-3xl reveal">How to apply</h2>
-        <div className="mt-8 grid md:grid-cols-2 gap-5">
-          {STEPS.map((s, i) => (
-            <div key={s.h} className={`feature-card reveal reveal-delay-${(i % 4) + 1}`}>
-              <p
-                className="text-xs font-bold tracking-widest"
-                style={{ color: "var(--color-gold-dark)" }}
-              >
-                STEP {i + 1}
-              </p>
-              <h3 className="mt-2 font-bold" style={{ color: "var(--color-navy)" }}>
-                {s.h}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed">{s.p}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-10 reveal">
-          <a href={F.officialUrl} target="_blank" rel="noopener noreferrer" className="cta-button-red">
-            Go to the official K-ETA site
-          </a>
-        </div>
-      </section>
-
-      {/* ── 滞在日数の考え方 ── */}
-      <section style={{ background: "var(--color-bg-soft)" }}>
-        <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
-          <h2 className="heading-band text-2xl md:text-3xl reveal">
-            How long you can stay is decided elsewhere
-          </h2>
-          <p className="mt-5 leading-relaxed reveal reveal-delay-1" style={{ maxWidth: "70ch" }}>
-            This is the part most guides get wrong. A K-ETA does not come with a stay period. Your
-            permitted stay comes from the visa-waiver arrangement between Korea and your country —
-            usually somewhere in the range of {F.stayRange} per entry — and the immigration officer
-            at the airport makes the final decision on both entry and duration.
-          </p>
-          <p className="mt-4 leading-relaxed reveal reveal-delay-2" style={{ maxWidth: "70ch" }}>
-            An approved K-ETA also does not guarantee entry. Carry the same passport you applied
-            with; the authorisation is recorded against it.
+      {/* ── 申請手順（詳細）── */}
+      <section className="section xsec">
+        <div className="container">
+          <span className="eyebrow">Step by step</span>
+          <h2>How to apply</h2>
+          <div className="xcards x2">
+            {STEPS.map((s, i) => (
+              <div key={s.h} className="xcard">
+                <span className="eyebrow">Step {i + 1}</span>
+                <h3>{s.h}</h3>
+                <p>{s.p}</p>
+              </div>
+            ))}
+          </div>
+          <p className="xnote">
+            An approved K-ETA also does not guarantee entry. Carry the same passport you applied with; the
+            authorisation is recorded against it.
           </p>
         </div>
       </section>
 
       {/* ── FAQ ── */}
-      <section className="max-w-4xl mx-auto px-6 py-16 md:py-20">
-        <h2 className="heading-band text-2xl md:text-3xl reveal">Frequently asked questions</h2>
-        <div className="mt-8 space-y-4">
-          {FAQ.map((f, i) => (
-            <details key={f.q} className={`card group reveal reveal-delay-${(i % 4) + 1}`}>
-              <summary className="flex items-start justify-between gap-4 font-bold cursor-pointer list-none">
-                <span>{f.q}</span>
-                <span
-                  className="shrink-0 transition-transform group-open:rotate-45"
-                  style={{ color: "var(--color-red-vivid)", fontSize: "1.25rem", lineHeight: 1 }}
-                  aria-hidden="true"
-                >
-                  +
-                </span>
-              </summary>
-              <p className="mt-3 text-sm leading-relaxed">{f.a}</p>
-            </details>
-          ))}
+      <section id="faq" className="section xsec xsec-alt">
+        <div className="container xnarrow">
+          <span className="eyebrow">FAQ</span>
+          <h2>Frequently asked questions</h2>
+          <div className="xfaq">
+            {FAQ.map((f) => (
+              <details key={f.q}>
+                <summary>
+                  <span>{f.q}</span>
+                  <span className="xplus" aria-hidden="true">+</span>
+                </summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+          <Link href="/faq/" className="textlink xmore">
+            All questions <span className="arrow" aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
 
-      {/* ── 下層ページへの導線（リンクの無いページは作らない方針） ── */}
-      <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
-        <h2 className="heading-band text-2xl md:text-3xl reveal">Read more about K-ETA</h2>
-        <div className="mt-8 grid md:grid-cols-3 gap-5">
-          {PAGES.filter((p) => !p.practical && !["privacy", "terms", "about"].includes(p.slug)).map((p, i) => (
-            <Link key={p.slug} href={`/${p.slug}/`} className={`feature-card no-underline reveal reveal-delay-${(i % 4) + 1}`}>
-              <h3 className="font-bold" style={{ color: "var(--color-navy)" }}>{p.nav}</h3>
-              <p className="mt-2 text-sm leading-relaxed">{p.description}</p>
-            </Link>
-          ))}
-        </div>
-        <div className="mt-8 flex flex-wrap gap-4 text-xs reveal">
-          {PAGES.filter((p) => ["about", "privacy", "terms"].includes(p.slug)).map((p) => (
-            <Link key={p.slug} href={`/${p.slug}/`}>{p.nav}</Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section style={{ background: "var(--color-navy)" }}>
-        <div className="max-w-3xl mx-auto px-6 py-16 md:py-20 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold reveal" style={{ color: "#fff" }}>
-            Check your status on the official site
-          </h2>
-          <p
-            className="mt-4 text-sm leading-relaxed reveal reveal-delay-1"
-            style={{ color: "rgba(255,255,255,.85)" }}
-          >
-            Only {F.officialHost} and the official K-ETA app are genuine. We are an independent guide
-            and cannot submit an application on your behalf.
-          </p>
-          <div className="mt-8 reveal reveal-delay-2">
-            <a
-              href={F.officialUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta-button-red"
-            >
-              Open {F.officialHost}
-            </a>
+      {/* ── 下層ページへの導線 ── */}
+      <section id="read-more" className="section xsec">
+        <div className="container">
+          <span className="eyebrow">Guide</span>
+          <h2>Read more about K-ETA</h2>
+          <div className="xcards x3">
+            {readMore.map((p) => (
+              <Link key={p.slug} href={`/${p.slug}/`} className="xcard xlink">
+                <div className="xrow">
+                  <div>
+                    <h3>{p.nav}</h3>
+                    <p>{p.description}</p>
+                  </div>
+                  <span className="xgo" aria-hidden="true">→</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
-    </>
+
+      <div className="main-wrap" dangerouslySetInnerHTML={{ __html: bottom }} />
+      <HomeChrome />
+    </div>
   );
 }

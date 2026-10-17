@@ -3,6 +3,7 @@ import { Noto_Sans, Noto_Serif } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NotOnHome from "@/components/NotOnHome";
 import { OG_IMAGES } from "@/data/facts";
 
 const notoSans = Noto_Sans({
@@ -67,9 +68,10 @@ export default function RootLayout({
       <body
         className={`${notoSans.variable} ${notoSerif.variable} antialiased`}
       >
-        <Header />
+        {/* TOP（"/"）は新デザインが自前のヘッダー・フッターを持つ（2026-10-17） */}
+        <NotOnHome><Header /></NotOnHome>
         <main className="min-h-screen">{children}</main>
-        <Footer />
+        <NotOnHome><Footer /></NotOnHome>
       </body>
     </html>
   );

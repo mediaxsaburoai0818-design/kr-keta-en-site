@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SubAside from "@/components/SubAside";
+import { CHROME, DATA_C } from "@/lib/chrome-l10n";
 import Reveal from "@/components/Reveal";
 import StickyCta from "@/components/StickyCta";
 import DocBlocks from "@/components/DocBlocks";
@@ -60,26 +62,27 @@ export default function EnglishDoc({ slug }: { slug: string }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <Reveal />
-      <StickyCta />
 
-      <section style={{ background: "var(--color-navy)" }}>
-        <div className="max-w-3xl mx-auto px-6 py-12 md:py-16">
-          <nav className="text-xs" style={{ color: "rgba(255,255,255,.75)" }}>
-            <Link href="/" style={{ color: "rgba(255,255,255,.85)" }}>K-ETA Guide</Link>
+      {/* 2026-10-21 下層ページの新デザイン（皮）：見出しの帯＋本文（左）＋目次と申請欄（右）。文言・順序・リンクは旧版のまま */}
+      <div className="etahome xskin" data-c={DATA_C} data-pat="1">
+        <StickyCta />
+        <div className="xgrid">
+          <section className="xhero">
+          <nav className="xcrumb" aria-label="Breadcrumb">
+            <Link href="/">K-ETA Guide</Link>
             <span> › </span>
             <span>{doc.nav}</span>
           </nav>
-          <h1 className="mt-4 text-2xl md:text-4xl font-bold leading-tight" style={{ color: "#fff" }}>
+          <h1>
             {doc.title}
           </h1>
-          <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,.85)" }}>
+          <p className="xlead">
             {doc.description}
           </p>
-          <p className="mt-4 text-xs" style={{ color: "rgba(255,255,255,.7)" }}>Checked {doc.checked ?? F.updatedLabel}</p>
-        </div>
-      </section>
+          <p className="xchecked">Checked {doc.checked ?? F.updatedLabel}</p>
+          </section>
 
-      <article className="max-w-3xl mx-auto px-6 py-14 md:py-16">
+      <article className="xbody">
         <DocBlocks
           blocks={doc.blocks}
           cards={PAGES.map((p) => ({ slug: p.slug, title: p.nav, description: p.description }))}
@@ -107,6 +110,10 @@ export default function EnglishDoc({ slug }: { slug: string }) {
           </div>
         </div>
       </article>
+          <SubAside t={CHROME.en.aside} />
+        </div>
+        <div className="xfinal" dangerouslySetInnerHTML={{ __html: CHROME.en.cta }} />
+      </div>
     </>
   );
 }

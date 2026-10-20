@@ -1,0 +1,99 @@
+/* 下層ページの新デザイン「皮」（okina 2026-10-21「オーストラリア、韓国、ニュージーランドもよろしく」）。
+   eta-se.com の下層（eta-skin.css）と同じ組み方：パンくず → キービジュアル（見出し・説明）→ 本文（左）＋目次と申請欄（右・PC）→ 下の帯。
+   スマホ（〜900px）は 見出し → 説明 → 本文 → 目次・申請欄 の順（DOM の順のまま）。
+   色・書体は TOP の .etahome[data-c=…] のトークンをそのまま使う（サイトごとのテイストは末尾の上書き）。
+   本文の部品は data/pages.ts 等の組版（Tailwind ＋ 旧 globals.css の .card / .feature-card / .heading-band / .cta-button-red）のまま。
+   ⚠️ .etahome の p/ul/h2 のリセット（margin:0 等・@layer 外）が Tailwind の mt-4 等（@layer 内）に勝つので、間隔はここで指定し直す。
+   ⚠️ 原本は ~/projects/eta-se-redesign/rollout/en3/（3サイト共通）。サイト側で直したら原本にも戻す。 */
+
+.xskin{background:#fff;color:var(--color-text);font-family:var(--font-sans);--x-gap:56px;--x-link:var(--color-cta);--x-acc:var(--color-cta);--x-marker:var(--x-acc);--x-hero:rgb(var(--hero-bg))}
+.xskin .xgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;column-gap:var(--x-gap);max-width:var(--container,1200px);margin:0 auto;padding:0 var(--page-padding,40px);align-items:start}
+
+/* キービジュアル（パンくず・見出し・説明・確認日）：全幅の淡い帯 */
+.xskin .xhero{grid-column:1/-1;position:relative;padding:30px 0 40px;margin-bottom:44px;background:var(--x-hero);box-shadow:0 0 0 100vmax var(--x-hero);clip-path:inset(0 -100vmax);border-bottom:1px solid var(--color-border)}
+.xskin .xcrumb{font:500 13px/1.4 var(--font-sans);color:var(--color-muted);margin:0 0 26px}
+.xskin .xcrumb a{color:var(--x-link);text-decoration:none}
+.xskin .xcrumb a:hover{text-decoration:underline}
+.xskin .xhero h1{font-size:46px;line-height:1.12;margin:0 0 16px;max-width:22ch;color:var(--color-heading)}
+.xskin .xhero .xlead{font-size:18px;line-height:1.65;max-width:62ch;color:var(--color-text);margin:0}
+.xskin .xhero .xchecked{margin:18px 0 0;font:600 12px/1 var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--color-eyebrow)}
+
+/* 本文 */
+.xskin .xbody{grid-column:1;min-width:0;padding:0 0 56px;font-size:17px}
+.xskin .xbody p{margin:16px 0 0;line-height:1.78;color:var(--color-text)}
+.xskin .xbody .heading-band{font-family:var(--font-serif);font-size:29px !important;line-height:1.25;color:var(--color-heading) !important;margin:44px 0 0;padding:0;scroll-margin-top:24px}
+.xskin .xbody > .heading-band:first-child,.xskin .xbody > * > .heading-band:first-child{margin-top:0}
+.xskin .xbody .heading-band::after{content:"";position:static;display:block;width:44px;height:3px;border-radius:3px;margin-top:12px;background:var(--x-acc)}
+.xskin .xbody ul{margin:16px 0 0;padding-left:1.3em !important;list-style:disc}
+.xskin .xbody ul li{margin:7px 0;line-height:1.7}
+.xskin .xbody ul li::marker{color:var(--x-marker)}
+.xskin .xbody a:not(.feature-card):not(.cta-button-red){color:var(--x-link);text-decoration:underline;text-underline-offset:2px}
+.xskin .xbody p.text-xs{font-size:13px;color:var(--color-muted) !important}
+
+/* 注意書き（.card に h3 が無いもの） */
+.xskin .xbody .card:not(:has(h3)){margin-top:22px;background:var(--color-bg-lighter) !important;border:0;border-left:3px solid var(--x-acc);border-radius:0 var(--radius-md) var(--radius-md) 0;box-shadow:none;padding:16px 20px}
+.xskin .xbody .card:not(:has(h3)) p{margin:0;font-size:15.5px}
+.xskin .xbody .card:hover,.xskin .xbody .feature-card:hover{transform:none}
+
+/* よくある質問（DocFaq の .card ＝ h3＋p） */
+.xskin .xbody .card:has(h3){border:1px solid var(--color-border);border-radius:var(--radius-md);box-shadow:none;padding:18px 22px;background:#fff}
+.xskin .xbody .card:has(h3) h3,.xskin .xbody .feature-card h3{font:700 17px/1.4 var(--font-sans);color:var(--color-heading) !important;letter-spacing:0}
+.xskin .xbody .card:has(h3) p{margin-top:8px;font-size:15.5px}
+
+/* 関連ページのカード（.feature-card） */
+.xskin .xbody .feature-card{display:block;border:1px solid var(--color-border);border-radius:var(--radius-md);box-shadow:var(--shadow-card);padding:18px 44px 18px 20px;background:#fff;text-decoration:none;transition:border-color .2s}
+.xskin .xbody .feature-card::before{display:none}
+.xskin .xbody .feature-card::after{content:"→";position:absolute;right:18px;top:18px;bottom:auto;left:auto;width:auto;height:auto;border:0;color:var(--x-link);font:600 16px/1.4 var(--font-sans)}
+.xskin .xbody .feature-card:hover{border-color:var(--x-link)}
+.xskin .xbody .feature-card p{margin-top:6px;font-size:14.5px;line-height:1.6;color:var(--color-muted)}
+
+/* 本文末尾の申請ボタン：TOP の .btn と同じ形 */
+.xskin .xbody .cta-button-red{display:inline-flex;align-items:center;width:auto;max-width:none;margin:0;height:52px;padding:0 28px;border:0;border-radius:var(--radius-sm);background:var(--color-cta);color:var(--x-btn-ink,#fff) !important;font:600 15.5px/1.2 var(--font-sans);box-shadow:none}
+.xskin .xbody .cta-button-red:hover{background:var(--color-cta-hover)}
+
+/* 右カラム（SubAside）：PC は本文の横に追従、スマホは本文の後ろ */
+.xskin aside.xside{grid-column:2;grid-row:2;position:sticky;top:20px;display:flex;flex-direction:column;gap:16px;margin-bottom:48px}
+.xskin .xbox{background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:18px 20px;box-shadow:var(--shadow-card)}
+.xskin .xeyebrow{display:block;font:700 11.5px/1 var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--color-eyebrow);margin-bottom:10px}
+.xskin .xtoc a{display:block;padding:8px 0;font:500 14px/1.45 var(--font-sans);color:var(--color-text);text-decoration:none;border-bottom:1px solid var(--color-border)}
+.xskin .xtoc a:last-child{border-bottom:0}
+.xskin .xtoc a:hover{color:var(--x-link)}
+.xskin .xcta{background:linear-gradient(160deg,var(--color-primary),var(--color-primary-dark));border:0;color:#fff}
+.xskin .xcta b{display:block;font:600 19px/1.3 var(--font-serif);margin-bottom:8px;color:#fff}
+.xskin .xcta p{margin:0 0 14px;font:400 14px/1.6 var(--font-sans);color:rgba(255,255,255,.84)}
+.xskin .xcta .btn{height:44px;padding:0 18px;font-size:14px;white-space:normal;text-align:left;line-height:1.25}
+.xskin .xcta .xsublink{display:block;margin-top:12px;font:600 13.5px/1.4 var(--font-sans);color:#fff;text-decoration:none}
+.xskin .xcta .xsublink:hover{text-decoration:underline}
+
+/* 追従バー（StickyCta）も TOP の色に */
+.xskin .cta-sticky-bar{background:var(--color-primary-dark);border-top:0}
+.xskin .cta-sticky-btn{background:var(--color-cta);color:var(--x-btn-ink,#fff) !important;border-radius:var(--radius-sm)}
+.xskin .cta-sticky-btn:hover{background:var(--color-cta-hover)}
+
+/* 下の帯（TOP の finalcta）：PC では申請ボタンが右に絶対配置なので、長い見出しがボタンの下に潜らないよう左右を空ける */
+@media (min-width:1024px){.xfinal .finalcta .container{padding-left:calc(var(--page-padding) + 300px) !important;padding-right:calc(var(--page-padding) + 300px) !important}}
+
+@media (max-width:900px){
+  .xskin .xgrid{grid-template-columns:minmax(0,1fr);padding:0 16px}
+  .xskin .xhero{padding:20px 0 28px;margin-bottom:30px}
+  .xskin .xcrumb{margin-bottom:16px}
+  .xskin .xhero h1{font-size:32px}
+  .xskin .xhero .xlead{font-size:16.5px}
+  .xskin .xbody{font-size:16.5px;padding-bottom:36px}
+  .xskin .xbody .heading-band{font-size:24px !important;margin-top:36px}
+  .xskin aside.xside{grid-column:1;grid-row:auto;position:static}
+}
+/* 下の帯のボタン：言語版は文言が長い（"Auf der offiziellen Seite Neuseelands beantragen"）→ スマホでは折り返す */
+@media (max-width:1023px){.xfinal .finalcta .btn{white-space:normal;height:auto;min-height:50px;padding:12px 20px;text-align:center;line-height:1.3}}
+
+/* ===== KR（k-eta-online.com）：TOP と同じ 配色B「Celadon & Brass」（青磁＋真鍮）＋ Noto Serif KR / Manrope。
+   韓国サイトは「白多め」（okina 2026-08-17）→ キービジュアルの帯も白地にし、青磁の細線と真鍮の短い線だけで区切る ===== */
+.xskin{--x-hero:#fff;--x-acc:var(--color-cta);--x-btn-ink:#fff;--x-link:var(--color-primary)}
+.xskin .xhero{border-bottom:1px solid var(--color-border)}
+.xskin .xhero::after{content:"";position:absolute;left:0;bottom:-2px;width:72px;height:3px;background:var(--color-cta)}
+.xskin .xhero h1{font-weight:900;letter-spacing:-.02em}
+.xskin .xbody .heading-band{font-weight:900;letter-spacing:-.015em}
+.xskin .xcta{background:linear-gradient(160deg,var(--color-primary),var(--color-primary-dark))}
+.xskin .xcta p{color:#D6E4DF}
+.xskin .xbox{border-radius:4px}
+.xskin .xbody .feature-card,.xskin .xbody .card:has(h3){border-radius:4px}

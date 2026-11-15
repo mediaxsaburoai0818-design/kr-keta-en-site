@@ -52,6 +52,9 @@ export function pickRelated<T extends { slug: string }>(all: T[], self: string, 
   return [...first, ...ring.filter((p) => p.slug !== self && !first.includes(p))].slice(0, n);
 }
 
+/** 2026-11-15 に公式で確認して追加したページの表示用確認日 */
+const NEW_CHECKED = "15 November 2026";
+
 const CORE: Page[] = [
   {
     slug: "what-is-keta",
@@ -118,6 +121,7 @@ const CORE: Page[] = [
   },
   {
     slug: "how-to-apply",
+    related: ["common-mistakes", "official-site", "keta-app"],
     nav: "How to apply",
     title: "How to apply for K-ETA: the official process, step by step",
     description:
@@ -157,6 +161,7 @@ const CORE: Page[] = [
   },
   {
     slug: "cost",
+    related: ["official-site", "keta-app"],
     nav: "Cost",
     title: `K-ETA cost: ${F.fee} paid once, and what the extra fees are`,
     description:
@@ -684,6 +689,7 @@ const CORE: Page[] = [
   },
   {
     slug: "when-the-exemption-ends",
+    related: ["news", "if-you-are-exempt"],
     nav: "After the exemption",
     title: `What happens after the temporary exemption ends on ${F.exemptionUntil}?`,
     description:
@@ -715,6 +721,7 @@ const CORE: Page[] = [
   },
   {
     slug: "if-your-keta-is-denied",
+    related: ["short-term-visit-visa", "common-mistakes"],
     nav: "If denied",
     title: "What to do if your K-ETA is denied",
     description:
@@ -738,6 +745,427 @@ const CORE: Page[] = [
           url: F.officialUrl,
         },
       },
+    ],
+  },
+  /* ── 2026-11-15 追加（ギャップ表＝~/projects/eta-expansion-20261115/gap.md・ファクト＝facts-kr.md）。
+     ⚠️ 書いてよいのは facts-kr.md で公式に確認できた事項だけ。「Not confirmed」の項目
+        （ミスの順位・拒否理由・免除国の数／一覧・2027年以降・C-3の必要書類と手数料・AREXの運賃）は書かない。 ── */
+  {
+    slug: "common-mistakes",
+    checked: NEW_CHECKED,
+    related: ["how-to-apply", "passport-and-details", "if-your-keta-is-denied", "required-documents"],
+    nav: "Common mistakes",
+    title: "Common K-ETA mistakes, and what the official FAQ says about each",
+    description:
+      "Details cannot be edited after submission, a new passport needs a new K-ETA, and travel changes must be updated. Mistakes the official K-ETA pages warn about.",
+    blocks: [
+      {
+        p: `The official K-ETA website does not publish a ranking of the most common mistakes, and the K-ETA Center does not tell applicants the exact reason for a denial, because the criteria are classified. What it does publish is a detailed FAQ and a set of notices. Each point below is one that those official pages warn about directly.`,
+      },
+      {
+        note: `Before anything else, check whether you need a K-ETA at all. Many nationalities are temporarily exempt until ${F.exemptionUntil}.`,
+      },
+      { h2: "1. Expecting to fix details after submitting" },
+      {
+        p: "You can correct any information before you submit the application. Once it is submitted, it cannot be corrected. The official FAQ states that passport (personal) information cannot be edited after submission regardless of the result, and that you should apply again with the correct details. The fee already paid is non-refundable regardless of the outcome.",
+      },
+      { h2: "2. Treating an approval with wrong details as valid" },
+      {
+        p: "If the information on an approved K-ETA does not match your passport — passport number, nationality, date of birth and so on — you may not be able to board the flight or ship to Korea, or may be denied entry. The official advice is to make sure everything is filled in correctly before paying.",
+      },
+      { h2: "3. Typing your name the way you usually write it" },
+      {
+        ul: [
+          "Names must be entered in English, and special characters such as hyphens (-) cannot be entered",
+          "The FAQ tells applicants to use the first line of the machine-readable zone (MRZ) at the bottom of the passport photo page",
+          "If your passport does not separate surname and given name, entering the full name exactly as written in the MRZ is acceptable",
+          "If your passport shows only a year of birth (for example 1999-XX-XX), enter 1999-00-00",
+        ],
+      },
+      { h2: "4. Travelling on a different passport" },
+      {
+        p: "The passport on your boarding pass, the passport you use to enter Korea and the passport on the K-ETA approval must all be the same. If you get a new passport — because of a name change, loss or renewal — you must apply again, even if the previous passport had an approval. A new application is also required if your nationality, name, sex, date of birth, passport number, passport expiry date, infectious disease status or criminal record changes. A change of occupation alone does not require a new application.",
+      },
+      { h2: "5. Not updating your travel information" },
+      {
+        p: "If your purpose of entry, address of intended stay, contact details, expected arrival or departure date, or accompanying persons change after approval, the official guide says you must update them on the [Update Travel Information] page of the K-ETA website. Failing to do so may result in entry denial or other disadvantages.",
+      },
+      { h2: "6. Leaving it too late" },
+      {
+        ul: [
+          "Applying after boarding or while already in Korea may lead to refusal of the K-ETA or entry restrictions",
+          "A K-ETA notice recommends applying 1 to 2 months before your expected date of entry",
+          `The assessment generally takes up to ${F.decisionTypical}, and may take longer when applications increase`,
+          "Applications are reviewed in the order received — there is no expedited service",
+          "A saved application form is deleted automatically if it is not retrieved within 7 days",
+        ],
+      },
+      { h2: "7. Applying again and again after a denial" },
+      {
+        p: "Applicants who apply 3 or more times within 6 months can apply again only 6 months after the date the result of the first application was notified. This restriction does not apply to a re-application made because personal information — passport number, name, date of birth, sex, nationality, photo and so on — was entered incorrectly. If you need to travel during the restriction period, the official notice directs you to apply for a visa at a Korean embassy or consulate.",
+      },
+      { h2: "8. A photo that does not meet the specification" },
+      {
+        ul: [
+          "In colour, in JPG format, no larger than 20MB",
+          "No accessories such as hats, scarves or sunglasses",
+          "Full face, front view, filling about 75% of the image, eyes open and looking straight at the camera",
+          "Religious clothing is allowed, but the face from forehead to chin must be clearly visible",
+        ],
+      },
+      { h2: "9. An email address that may not receive the result" },
+      {
+        p: "A K-ETA notice reports delays in receiving emails for Gmail users and asks applicants to use an alternative email address. It adds that U.S.-based services such as outlook.com and hotmail.com may have the same delays.",
+      },
+      { h2: "10. Payment that does not go through" },
+      {
+        p: "If a 3DS (payer authentication) error appears, the FAQ says to contact your card company. The fee page notes that the payment may fail if your card's overseas payment option is blocked.",
+      },
+      { h2: "11. Assuming where you live decides eligibility" },
+      {
+        p: "Eligibility depends on the nationality stated on the passport photo page. Place of residence, place of departure, a visa for a third country and vaccination status are irrelevant.",
+      },
+      { h2: "Two things that are not mistakes of form" },
+      {
+        ul: [
+          "False information: an application with false information can be denied, or cancelled at any time even after approval, and the person may face penalties or entry restrictions",
+          "Using a K-ETA for work or study: employment, study and other profitable activities require a visa from a Korean embassy or consulate",
+        ],
+      },
+      { source: { label: "K-ETA — Frequently asked questions", url: "https://www.k-eta.go.kr/portal/board/viewboardlist.do?tmpltNm=faq2" } },
+      { source: { label: "K-ETA — Application guide", url: "https://www.k-eta.go.kr/portal/guide/viewetaapplication.do" } },
+      { source: { label: "K-ETA — Fee information", url: "https://www.k-eta.go.kr/portal/guide/viewetafeeinformation.do" } },
+      { source: { label: "K-ETA notice — Information about K-ETA (from 9 January 2023)", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=99397" } },
+      { source: { label: "K-ETA notice — Estimated time for K-ETA screening", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=11468" } },
+      { source: { label: "K-ETA notice — Restriction on the number of applications", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=38748" } },
+      { source: { label: "K-ETA notice — Delay in Gmail email reception", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=307497" } },
+    ],
+    faq: [
+      { q: "Can I correct my K-ETA after submitting it?", a: "No. Information can be corrected only before submission. For wrong passport details, the official FAQ says to apply again with the correct information." },
+      { q: "Do I need a new K-ETA if I change jobs?", a: "No. The official FAQ says a change of occupation does not require a new application. A new passport, name or nationality does." },
+      { q: "Why was my K-ETA denied?", a: "The K-ETA Center does not disclose the exact reason, because the criteria are classified. If you wish to enter Korea, the FAQ directs you to apply for a visa at a Korean embassy or consulate." },
+    ],
+  },
+  {
+    slug: "keta-app",
+    checked: NEW_CHECKED,
+    related: ["official-site", "how-to-apply", "status-check", "common-mistakes"],
+    nav: "K-ETA app",
+    title: "The official K-ETA app: where to get it and what it does",
+    description:
+      "K-ETA is applied for only on k-eta.go.kr or in the official K-ETA app published by Korea's Ministry of Justice. What the app does, and what it does not change.",
+    blocks: [
+      {
+        p: `The official K-ETA website states that applications are available only at www.k-eta.go.kr or in the mobile app called K-ETA. The app is a second way into the same system, not a separate service.`,
+      },
+      { h2: "Where to get it" },
+      {
+        ul: [
+          "Android: Google Play. iPhone: App Store. Search for \"K-ETA\"",
+          "On Google Play the developer is listed as 법무부 (the Ministry of Justice); on the App Store the seller is listed as Ministry of Justice",
+          "The store description calls it the official Republic of Korea government app and names www.k-eta.go.kr as the official website",
+          `The app is free to download. The K-ETA fee of ${F.fee} per person is paid during the application`,
+        ],
+      },
+      {
+        note: "Check the publisher name before you install anything. The official app is published by Korea's Ministry of Justice.",
+      },
+      { h2: "What the app makes easier" },
+      {
+        p: "On the website, the face photo and the passport photo-page image must each be a JPG of less than 20MB. The official FAQ says that in the app the size and capacity are adjusted automatically.",
+      },
+      { h2: "What else you can do in the app" },
+      {
+        ul: [
+          "Check your result under [K-ETA Application Results]",
+          "Change your travel details under [Update Travel Information] in the [Application Results] tab",
+          "Check the application status — the FAQ says this can be done on the website or in the app",
+        ],
+      },
+      { h2: "If something goes wrong" },
+      {
+        ul: [
+          "Payment errors on a desktop browser: an official notice suggests trying the K-ETA app, or the mobile website on a mobile device",
+          "Errors in the app: an official notice says to delete and re-install the K-ETA app",
+          "A 3DS (payer authentication) error: the FAQ says to contact your card company",
+        ],
+      },
+      { h2: "What the app does not change" },
+      {
+        ul: [
+          `The application fee is ${F.fee} per person (${F.feeUsdApprox}); an online payment processing fee of generally about 3% may be added. The official pages do not state a different price for the app`,
+          `The assessment generally takes up to ${F.decisionTypical}, and there is no expedited service for any application`,
+          `A granted K-ETA is valid for ${F.validYears} years, however you applied`,
+        ],
+      },
+      { source: { label: "K-ETA official website — application", url: F.officialUrl } },
+      { source: { label: "K-ETA — Frequently asked questions", url: "https://www.k-eta.go.kr/portal/board/viewboardlist.do?tmpltNm=faq2" } },
+      { source: { label: "K-ETA — Fee information", url: "https://www.k-eta.go.kr/portal/guide/viewetafeeinformation.do" } },
+      { source: { label: "K-ETA notice — How to fix payment errors", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=56631" } },
+      { source: { label: "K-ETA notice — How to fix errors when applying for K-ETA", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=268391" } },
+      { source: { label: "Google Play — K-ETA (Ministry of Justice)", url: "https://play.google.com/store/apps/details?id=kr.go.keta" } },
+      { source: { label: "App Store — K-ETA (Ministry of Justice)", url: "https://apps.apple.com/us/app/k-eta/id1562976724" } },
+    ],
+    faq: [
+      { q: "Is the K-ETA app free?", a: `The app is free to download. The K-ETA application fee of ${F.fee} per person is charged when you apply.` },
+      { q: "Is the app faster than the website?", a: "The official pages do not say so. Applications are reviewed in the order received, and there is no expedited service." },
+    ],
+  },
+  {
+    slug: "official-site",
+    checked: NEW_CHECKED,
+    related: ["keta-app", "cost", "how-to-apply", "arrival-card-and-e-gates"],
+    nav: "Official site",
+    title: "The official K-ETA website, and how to recognise it",
+    description:
+      `Apply only at www.k-eta.go.kr or in the official K-ETA app. Korea has not designated any application agencies. The official fee is ${F.fee} per person.`,
+    blocks: [
+      {
+        p: `There are two official ways to apply: the website at www.k-eta.go.kr and the mobile app called K-ETA. The official site warns applicants to be careful of similar agencies and phishing sites that charge high fees under the pretext of providing K-ETA application or expedited services.`,
+      },
+      { h2: "No agencies have been designated" },
+      {
+        p: "A K-ETA notice states that the Government of the Republic of Korea has not delegated the K-ETA application service to any agencies, and that non-official websites have been found demanding a higher application fee. The Korea Immigration Service repeated the warning in August 2025: no agencies have been designated, and applications should be submitted through the official website or the K-ETA app.",
+      },
+      { h2: "What the official site charges" },
+      {
+        ul: [
+          `${F.fee} per person (${F.feeUsdApprox})`,
+          "An additional online payment processing fee may apply — generally about 3%",
+          "Once paid, the fee is non-refundable regardless of the outcome",
+          "Accepted cards: VISA, MASTER, JCB, AMEX, Diners Club, DISCOVER, UnionPay and Alipay+",
+          "For applications submitted after 3 July 2023, 09:00 (KST), a receipt is sent to the applicant's email address automatically",
+        ],
+      },
+      { h2: "How long it takes" },
+      {
+        p: `The official site states that the assessment generally takes up to ${F.decisionTypical}, and that it may take longer when applications increase unexpectedly. Applications are reviewed in the order received and there is no expedited service.`,
+      },
+      { h2: "Who runs it and how to contact them" },
+      {
+        ul: [
+          "The site is operated by the Korea Electronic Travel Authorization (K-ETA) Center of the Ministry of Justice, Republic of Korea",
+          "In principle, the K-ETA Center does not provide telephone or face-to-face consultations. Questions go through [Ask Us], in Korean, English, Thai or Russian",
+          "The application form and major notices are available in 10 languages, but the application fields accept English only",
+          "On the website, non-members can add up to 9 other people to an application; members can add up to 1,000",
+        ],
+      },
+      { h2: "The e-Arrival card has its own official site" },
+      {
+        p: "The Korea Immigration Service warns about fake e-Arrival card websites. The only official e-Arrival card website is www.e-arrivalcard.go.kr, and any website that requests payment information for it is not an official service.",
+      },
+      {
+        note: `This guide is independent and is not an official site. We do not take applications or payments. Apply only at ${F.officialHost} or in the K-ETA app.`,
+      },
+      { source: { label: "K-ETA official website — application", url: F.officialUrl } },
+      { source: { label: "K-ETA notice — Beware of non-official websites and agencies", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=114771" } },
+      { source: { label: "Korea Immigration Service — Beware of unofficial K-ETA websites (18 August 2025)", url: "https://www.immigration.go.kr/bbs/immigration_eng/229/598009/artclView.do" } },
+      { source: { label: "K-ETA — Fee information", url: "https://www.k-eta.go.kr/portal/guide/viewetafeeinformation.do" } },
+      { source: { label: "K-ETA notice — How to get a payment receipt", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=130892" } },
+      { source: { label: "K-ETA — Frequently asked questions", url: "https://www.k-eta.go.kr/portal/board/viewboardlist.do?tmpltNm=faq2" } },
+      { source: { label: "Korea Immigration Service — Beware of fake e-Arrival card websites (9 March 2026)", url: "https://www.immigration.go.kr/bbs/immigration_eng/229/604164/artclView.do" } },
+    ],
+    faq: [
+      { q: "Is there an authorised K-ETA agency?", a: "No. The Korean government states that it has not designated any agencies for K-ETA applications." },
+      { q: "Can I phone the K-ETA Center?", a: "In principle the K-ETA Center does not provide telephone or face-to-face consultations. Use [Ask Us] on the official website." },
+    ],
+  },
+  {
+    slug: "major-airports",
+    checked: NEW_CHECKED,
+    practical: true,
+    related: ["arriving-in-korea", "arrival-card-and-e-gates", "transit-through-korea", "transport-cards"],
+    nav: "Major airports",
+    title: "Korea's main international airports: Incheon, Gimpo, Gimhae and Jeju",
+    description:
+      "Confirm your Incheon terminal on your e-ticket, allow 1–2 hours for immigration before booking onward transport, and use designated taxi stands.",
+    blocks: [
+      {
+        p: "Most international visitors arrive at Incheon International Airport, run by Incheon International Airport Corporation. Gimpo, Gimhae (Busan) and Jeju are run by Korea Airports Corporation.",
+      },
+      { h2: "Incheon: two terminals" },
+      {
+        ul: [
+          "Terminal 1: 272 Gonghang-ro, Yeongjong-gu, Incheon",
+          "Terminal 2: 446 Je2terminal-daero, Yeongjong-gu, Incheon",
+          "Airlines listed at Terminal 2 include Korean Air, Asiana Airlines, Jin Air, Air Seoul, Air Busan and Delta Air Lines",
+          "Airlines listed at Terminal 1 include Jeju Air, Trinity Airways, Eastar Jet, Air Premia, PARATA AIR, Aero K Airlines and other foreign airlines",
+          "Information line: 1577-2600 (07:00–22:00, year-round)",
+        ],
+      },
+      {
+        note: "Incheon Airport says that because of codeshare flights and other airline arrangements, your actual terminal may differ. Confirm it on your e-ticket.",
+      },
+      { h2: "Arriving at Incheon" },
+      {
+        ul: [
+          "If you arrive at the concourse, you take the shuttle train (24 hours) to the terminal",
+          "Immigration comes next. Incheon Airport's guide says only unregistered foreign nationals fill in an arrival card; the K-ETA guide adds that K-ETA holders are exempt from submitting it",
+          "After immigration, take the escalator to the first floor for baggage claim",
+        ],
+      },
+      { h2: "Getting into the city from Incheon" },
+      {
+        ul: [
+          "Incheon Airport asks you to allow 1–2 hours for immigration after landing when booking public transport",
+          "Airport Railroad (AREX) stations are in the Transportation Center on Basement 1 of each terminal. The route map shows about 44 minutes from Terminal 1 to Gimpo Airport, where you can change to subway Lines 5 and 9, the Gimpo Goldline and the Seohae Line",
+          "AREX also links the two terminals: about 6 minutes, KRW 1,050 — it is a paid service",
+          "Bus tickets at Terminal 1 are sold next to exits 4 and 9 inside, and near exits 4, 6, 7, 8, 11 and 13 outside",
+          "Taxis: Incheon Airport warns that illegal solicitation and overcharging by call vans posing as taxis are common, and advises using the designated taxi stands",
+          "Luggage delivery (T-Luggage): counters opposite check-in counter B on the 3rd floor of Terminal 1, and opposite check-in counter H on the 3rd floor of Terminal 2",
+        ],
+      },
+      { source: { label: "Incheon International Airport — Arrival guide and terminals", url: "https://www.airport.kr/ap_en/1439/subview.do" } },
+      { source: { label: "Incheon International Airport — Bus", url: "https://www.airport.kr/ap_en/1502/subview.do" } },
+      { source: { label: "Incheon International Airport — Airport Railroad", url: "https://www.airport.kr/ap_en/1512/subview.do" } },
+      { source: { label: "Incheon International Airport — Transfers between terminals", url: "https://www.airport.kr/ap_en/1525/subview.do" } },
+      { source: { label: "Incheon International Airport — Taxi", url: "https://www.airport.kr/ap_en/1515/subview.do" } },
+      { h2: "Gimpo (Seoul)" },
+      {
+        p: "Gimpo International Airport is at 112 Haneul-gil, Gangseo-gu, Seoul, and has separate domestic and international terminals. Gimpo Airport station connects the Airport Railroad with subway Lines 5 and 9, the Gimpo Goldline and the Seohae Line.",
+      },
+      { source: { label: "Korea Airports Corporation — Gimpo International Airport", url: "https://www.airport.co.kr/gimpoeng/cms/frCon/index.do?MENU_ID=510" } },
+      { h2: "Gimhae (Busan)" },
+      {
+        p: "Gimhae International Airport is in Gangseo-gu, Busan. A new international terminal opened in October 2007, and the international terminal was expanded in July 2017. The limousine bus to Seomyeon and Bujeon leaves from platform 3 on the first floor of both the international and domestic terminals.",
+      },
+      { source: { label: "Korea Airports Corporation — Gimhae International Airport", url: "https://www.airport.co.kr/gimhaeeng/cms/frCon/index.do?MENU_ID=300" } },
+      { h2: "Jeju" },
+      {
+        ul: [
+          "Jeju International Airport is at 2 Gonghang-ro, Jeju-si, Jeju-do. The 600 limousine bus stops in front of Gate 5",
+          "Since 1 September 2022, travellers from K-ETA eligible countries need a K-ETA before boarding a flight or ship bound for Jeju from overseas — unless an exemption applies to them, as anywhere else in Korea",
+          "Separately, Jeju has a visa-free entry scheme for travel and transit by direct international flight or ship, with a stay of 30 days limited to Jeju. Some nationalities are excluded; check the Korea Visa Portal for the list",
+        ],
+      },
+      { source: { label: "Korea Airports Corporation — Jeju International Airport", url: "https://www.airport.co.kr/jejueng/cms/frCon/index.do?MENU_ID=270" } },
+      { source: { label: "K-ETA notice — K-ETA required for Jeju-bound travel from 1 September 2022", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=53251" } },
+      { source: { label: "Korea Visa Portal — Visa-free entry guide", url: "https://www.visa.go.kr" } },
+      {
+        note: "Same-day e-gate registration for visitors is covered on our arrival card and e-gates page.",
+      },
+    ],
+    faq: [
+      { q: "Which Incheon terminal do I arrive at?", a: "It depends on the airline, and codeshare flights can differ. Incheon Airport says to confirm your terminal on your e-ticket." },
+      { q: "How do I move between Incheon Terminals 1 and 2?", a: "By the Airport Railroad. Incheon Airport gives about 6 minutes and a fare of KRW 1,050; it is a paid service." },
+    ],
+  },
+  {
+    slug: "news",
+    checked: NEW_CHECKED,
+    related: ["when-the-exemption-ends", "if-you-are-exempt", "do-i-need-keta"],
+    nav: "K-ETA news",
+    title: `K-ETA news: the temporary exemption to ${F.exemptionUntil} and earlier changes`,
+    description:
+      `The K-ETA exemption runs to ${F.exemptionUntil}; as of 15 November 2026 nothing about 2027 had been announced on k-eta.go.kr. Official changes since 2021.`,
+    blocks: [
+      {
+        p: "This page lists changes to the K-ETA that are published on official Korean government pages, with the date the official page gives. It is updated when we check those pages; the date we last did so is shown above.",
+      },
+      { h2: "23 December 2025 — exemption extended to 31 December 2026" },
+      {
+        ul: [
+          `The Ministry of Justice extended the temporary exemption by one more year to stimulate the tourism industry. The extended period runs from 1 January 2026 to ${F.exemptionUntil} (KST)`,
+          "The countries and regions that were exempt at the time are covered by the extension. The notice does not list them; exempt travellers get a pop-up message when they scan their passport photo page during the application",
+          "Exempt travellers who want the benefits of a K-ETA approval, such as not having to submit an arrival card, may still apply, and the fee is charged",
+          "Anyone who already holds a K-ETA can use it until it expires. The fee paid is non-refundable",
+        ],
+      },
+      { source: { label: "K-ETA notice — Extension of K-ETA temporary exemption (posted 23 December 2025)", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=299707" } },
+      { h2: "After 31 December 2026" },
+      {
+        p: `As of 15 November 2026, the K-ETA notice board had no newer notice about the exemption, and the newest items on the Korea Immigration Service English news board said nothing about the K-ETA. Whether the exemption will be extended again has not been announced on those pages. If you travel on or after 1 January 2027, check the K-ETA notices close to your departure date.`,
+      },
+      { source: { label: "K-ETA — Notices", url: "https://www.k-eta.go.kr/portal/board/viewboardlist.do?tmpltNm=notice" } },
+      { source: { label: "Korea Immigration Service — News (English)", url: "https://www.immigration.go.kr/bbs/immigration_eng/229/artclList.do" } },
+      { h2: "Earlier changes" },
+      {
+        ul: [
+          "1 September 2021 — the K-ETA was implemented",
+          "1 September 2022 — travellers from the then 112 K-ETA eligible countries needed a K-ETA before boarding a flight or ship bound for Jeju from overseas",
+          "9 January 2023 — diplomatic and official passport holders were exempted from the K-ETA",
+          `3 July 2023 — visa-free travellers aged ${F.ketaChildMaxAge} or younger and ${F.ketaSeniorMinAge} or older were exempted, and validity was extended from 2 years to ${F.validYears} years. Receipts for applications submitted after 09:00 (KST) that day are emailed automatically`,
+          "18 March 2024 — \"Tour (Incentive Travel)\" was added as a purpose of entry, for trips and meetings of 10 or more people paid for by a company",
+          "31 August 2025 — the Korea Immigration Service opened a dedicated entry counter for foreign business travellers at Incheon International Airport, running through December",
+          "2026 (notice listed 11 March 2026) — the K-ETA Center reported delays in receiving emails for Gmail users and asked applicants to use another address",
+        ],
+      },
+      { source: { label: "K-ETA notice — Beware of non-official websites and agencies (implementation date)", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=114771" } },
+      { source: { label: "K-ETA notice — K-ETA required for Jeju-bound travel", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=53251" } },
+      { source: { label: "K-ETA notice — Information about K-ETA (from 9 January 2023)", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=99397" } },
+      { source: { label: "K-ETA notice — Expansion of validity and age exemption (3 July 2023)", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=175270" } },
+      { source: { label: "K-ETA notice — How to get a payment receipt", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=130892" } },
+      { source: { label: "K-ETA notice — New purpose of entry: Tour (Incentive Travel)", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=223021" } },
+      { source: { label: "Korea Immigration Service — Reduced wait times for foreign business travellers (27 August 2025)", url: "https://www.immigration.go.kr/bbs/immigration_eng/229/598244/artclView.do" } },
+      { source: { label: "K-ETA notice — Delay in Gmail email reception", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=307497" } },
+      {
+        note: "Not listed here: the date the temporary exemption first started and the dates of earlier extensions. The earlier notices are no longer on k-eta.go.kr, and we could not confirm those dates on an official page.",
+      },
+    ],
+  },
+  {
+    slug: "short-term-visit-visa",
+    checked: NEW_CHECKED,
+    related: ["if-your-keta-is-denied", "do-i-need-keta", "how-long-can-you-stay"],
+    nav: "Short-term visit visa (C-3)",
+    title: "Korea's short-term visit visa (C-3): when you need a visa instead of a K-ETA",
+    description:
+      "A denied K-ETA, a re-application restriction, work or study plans, or a passport that is not visa-free mean applying for a visa. The C-3 categories explained.",
+    blocks: [
+      {
+        p: "The K-ETA is only for travellers who can enter Korea without a visa. In several situations the official K-ETA pages direct you to a visa instead, applied for through a Korean embassy or consulate.",
+      },
+      { h2: "When you need a visa instead" },
+      {
+        ul: [
+          "Your K-ETA was denied — the FAQ says to obtain a visa at the nearest Korean embassy or consulate",
+          "You are within the re-application restriction (3 or more applications in 6 months) and need to travel during that period",
+          "You plan employment, study or any other profitable activity",
+          "Your passport nationality is not eligible for visa-free entry — K-ETA eligibility depends on the nationality on the passport photo page",
+        ],
+      },
+      { h2: "If you already hold a visa" },
+      {
+        p: "Valid Korean visa holders do not need a K-ETA. The official guide states that if you hold a valid visa, your status and period of stay are granted according to that visa, regardless of whether you also hold a K-ETA.",
+      },
+      { h2: "The C-3 short-term visit categories" },
+      {
+        p: "On the Korea Visa Portal, \"Short Term Visit\" is listed for stays of 90 days or less and is divided into these categories:",
+      },
+      {
+        ul: [
+          "Short-Term General (C-3-1)",
+          "Group Tourist (C-3-2)",
+          "Business Visitor (General) (C-3-4)",
+          "Business Visitor (Agreement) (C-3-5)",
+          "Business Visitor (Sponsored) (C-3-6)",
+          "Short term Visitor (Overseas Korean) (C-3-8)",
+          "Ordinary Tourist (C-3-9)",
+          "Direct Transit Visa (Air-side) (C-3-10)",
+        ],
+      },
+      {
+        p: "The Visa Navigator describes Short-Term General (C-3-1) as covering visits to relatives, friendly matches, attending or observing events and meetings, culture and arts, general training, classes, religious ceremonies, collecting academic material and similar purposes. Profit-making activity and employment are not permitted.",
+      },
+      {
+        p: "APEC Business Travel Card holders are granted Short-Term Business (C-3-4) status on entry and may stay up to 90 days.",
+      },
+      { h2: "How to apply" },
+      {
+        p: "The Visa Navigator shows three routes: applying through a Korean diplomatic office, applying for an electronic visa, and applying for a Confirmation of Visa Issuance. Which route is open to you, the documents required, the fee and the processing time depend on your nationality and on the embassy or consulate handling your case. Check with that embassy or consulate, or use the Visa Navigator, before you apply.",
+      },
+      {
+        note: "The Immigration Contact Center can be reached on +82-1345.",
+      },
+      { source: { label: "Korea Visa Portal — Visa by categories", url: "https://www.visa.go.kr/openPage.do?MENU_ID=10102&LANG_TYPE=EN" } },
+      { source: { label: "Korea Visa Portal — Visa Navigator", url: "https://www.visa.go.kr/openPage.do?MENU_ID=10101&LANG_TYPE=EN" } },
+      { source: { label: "K-ETA — Frequently asked questions", url: "https://www.k-eta.go.kr/portal/board/viewboardlist.do?tmpltNm=faq2" } },
+      { source: { label: "K-ETA — Application guide", url: "https://www.k-eta.go.kr/portal/guide/viewetaapplication.do" } },
+      { source: { label: "K-ETA notice — Restriction on the number of applications", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=38748" } },
+    ],
+    faq: [
+      { q: "Do I need a K-ETA if I have a Korean visa?", a: "No. The official FAQ says valid Korean visa holders do not need a K-ETA." },
+      { q: "What documents does a C-3 visa need?", a: "They depend on your nationality and on the Korean embassy or consulate handling the application. Check with that embassy or consulate, or the Korea Visa Portal." },
     ],
   },
   {

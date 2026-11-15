@@ -40,7 +40,7 @@ const RAW: Page[] = [
       { h2: "Money" },
       { links: ["money-and-tipping", "tax-refund-for-tourists"] },
       { h2: "Getting around and staying connected" },
-      { links: ["transport-cards", "driving-in-korea", "phones-and-sim-cards", "power-plugs", "public-holidays"] },
+      { links: ["major-airports", "transport-cards", "driving-in-korea", "phones-and-sim-cards", "power-plugs", "public-holidays"] },
       { h2: "Health and safety" },
       { links: ["healthcare-for-visitors", "emergency-and-safety", "smoking-vaping-and-alcohol"] },
       { h2: "Flying home" },

@@ -94,7 +94,7 @@ export const de: LangContent = {
       ],
       ["Reisepass ohne Visumbefreiung", "Nicht anwendbar", "Sie brauchen ein Visum, keine K-ETA", "je nach Visum"],
     ],
-    note: `Zur Zahl der befreiten Länder kursieren widersprüchliche Angaben (22 Länder, 67 Länder). Deshalb nennen wir hier keine Zahl — maßgeblich ist die offizielle Liste auf ${F.officialHost}. Geprüft am 17. August 2026.`,
+    note: `Zur Zahl der befreiten Länder kursieren widersprüchliche Angaben (etwa 22 Länder). Die ebenfalls genannte Zahl 67 ist laut offizieller FAQ die Zahl der visumfreien Länder und Regionen, für die die K-ETA gilt — nicht die Zahl der befreiten Länder. Deshalb nennen wir hier keine Zahl — maßgeblich ist die offizielle Liste auf ${F.officialHost}. Geprüft am 17. August 2026.`,
   },
   steps: {
     h2: "Der Ablauf, wenn ein Antrag nötig ist",
@@ -211,7 +211,7 @@ export const de: LangContent = {
           ul: [
             `Offizielle Seite: ${F.officialHost}`,
             "Eine kostenpflichtige Expressbearbeitung gibt es offiziell nicht",
-            "Wer befreit ist und trotzdem zahlt, erhält dadurch keinerlei Vorteil",
+            "Wer befreit ist und trotzdem beantragt, zahlt die Gebühr; der Vorteil laut offizieller Mitteilung: Die Einreisekarte entfällt",
           ],
         },
         {
@@ -223,7 +223,7 @@ export const de: LangContent = {
       slug: "keta-unterlagen",
       title: "Was Sie für den K-ETA-Antrag brauchen",
       description:
-        "Die Angaben, die tatsächlich abgefragt werden — und der häufigste Grund, aus dem ein Foto abgelehnt wird.",
+        "Die Angaben, die tatsächlich abgefragt werden — und die Vorgaben für das Foto.",
       blocks: [
         { h2: "Das brauchen Sie" },
         {
@@ -235,9 +235,9 @@ export const de: LangContent = {
             "Eine Zahlungsmöglichkeit (Kreditkarte)",
           ],
         },
-        { h2: "Am Foto scheitert es am häufigsten" },
+        { h2: "Worauf es beim Foto ankommt" },
         {
-          p: "Das Foto muss aktuell sein, frontal und mit ruhigem Hintergrund. Der mit Abstand häufigste Ablehnungsgrund sind Schatten im Gesicht oder im Hintergrund, danach folgen Kopfbedeckungen, getönte Brillen und alte Aufnahmen. Vor einer weißen Wand bei gleichmäßigem Licht ist am sichersten.",
+          p: "Das Foto muss aktuell sein, frontal und mit ruhigem Hintergrund. Laut offizieller FAQ: in Farbe, im JPG-Format, höchstens 20 MB, ohne Hut, Schal oder Sonnenbrille, Gesicht frontal (etwa 75 % des Bildes), Augen offen und in die Kamera gerichtet. Vor einer weißen Wand bei gleichmäßigem Licht ist am sichersten.",
         },
         { h2: "Wenn die Unterkunft noch nicht feststeht" },
         {
@@ -479,7 +479,7 @@ export const de: LangContent = {
         { h2: "Die typischen Stolperstellen" },
         {
           ul: [
-            "Schreibweise des Namens weicht vom Reisepass ab (der häufigste Fall)",
+            "Schreibweise des Namens weicht vom Reisepass ab",
             "Das Foto entspricht nicht den Vorgaben und wird zurückgewiesen",
             "Eine Vermittlerseite wird für die offizielle gehalten und eine Servicegebühr bezahlt",
             "Antrag erst ein, zwei Tage vor Abflug — bei manueller Prüfung wird es dann knapp",

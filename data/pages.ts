@@ -69,11 +69,11 @@ const CORE: Page[] = [
       },
       { h2: "Check the exemption before you apply" },
       {
-        p: `This is the point most guides get wrong. South Korea has temporarily suspended the K-ETA requirement for a number of countries and regions until ${F.exemptionUntil}. If your passport is on that list, you do not need K-ETA and paying for one gains you nothing.`,
+        p: `This is the point most guides get wrong. South Korea has temporarily suspended the K-ETA requirement for a number of countries and regions until ${F.exemptionUntil}. If your nationality is currently exempt, you do not need K-ETA. You may still choose to apply — the official notice names not having to submit an arrival card as the benefit — but the fee is charged.`,
       },
       {
         note:
-          "The number of exempt countries has been reported inconsistently. Rather than trust a number, check your own passport against the official list on k-eta.go.kr before doing anything else.",
+          "The number of exempt countries has been reported inconsistently, and the official extension notice does not list them. Instead, exempt travellers get a pop-up message when they scan their passport photo page during the application on k-eta.go.kr. Check your own passport that way before doing anything else.",
       },
       { h2: "It is not a visa" },
       {
@@ -99,15 +99,15 @@ const CORE: Page[] = [
       { h2: "How to check" },
       {
         ul: [
-          `Open the official site (${F.officialHost}) and find the current list of exempt countries and regions.`,
+          `Start the application on the official site (${F.officialHost}) or in the K-ETA app. According to the official notice, exempt travellers get a pop-up message when they scan their passport photo page.`,
           "Match the passport you will actually travel on — not a second nationality you hold.",
-          "If you are on the list, you do not apply and you do not pay.",
-          "If you are not on the list, apply before you fly.",
+          "If you are exempt, you do not need to apply or pay. You may still apply to skip the arrival card, and the fee is then charged.",
+          "If you are not exempt, complete the application before you fly.",
         ],
       },
       { h2: "Why we do not print the list here" },
       {
-        p: "The exemption has been extended and revised more than once, and the number of countries has been reported differently by different outlets. A list copied into a guide goes out of date quietly. The official page does not.",
+        p: "The exemption has been extended and revised more than once, and the number of countries has been reported differently by different outlets. The official extension notice does not list the exempt countries either; the check is made when you scan your passport in the official application. A list copied into a guide goes out of date quietly.",
       },
       { h2: "Exempt does not mean nothing to prepare" },
       {
@@ -152,7 +152,7 @@ const CORE: Page[] = [
       },
       { h2: "Where people get stuck" },
       {
-        p: "Two things account for most failed submissions: an image of the passport page that is cropped or reflective, and a name entered differently from the passport. Enter names exactly as printed, including middle names.",
+        p: "Two things to get right: an image of the passport page that is not cropped or reflective, and a name entered exactly as on the passport. Enter names exactly as printed, including middle names.",
       },
       {
         note: `Apply well before departure. The official guidance is a decision within ${F.decisionTypical}, but that is a typical case, not a guarantee.`,
@@ -204,7 +204,7 @@ const CORE: Page[] = [
     nav: "What you need",
     title: "K-ETA requirements: documents, photos and the details people get wrong",
     description:
-      "What you must have ready to complete a K-ETA application, and the photo and name rules that cause most rejections.",
+      "What you must have ready to complete a K-ETA application, and the photo and name rules to get right.",
     blocks: [
       {
         p: "K-ETA is completed online, so nothing is posted or stamped. What matters is that what you upload and type matches your passport exactly.",
@@ -225,7 +225,7 @@ const CORE: Page[] = [
           "Your occupation and the purpose of the trip.",
         ],
       },
-      { h2: "The two most common causes of trouble" },
+      { h2: "Two things to get right" },
       {
         p: "Glare on the passport image, and a name that does not match the passport. Both are avoidable in a minute, and both cause delays that no amount of paying can shorten.",
       },
@@ -283,7 +283,7 @@ const CORE: Page[] = [
       },
       { h2: "Validity is not permission to stay" },
       {
-        p: `The ${F.validYears}-year period is how long the authorisation can be used to board. How long you may remain in Korea on each visit is a separate matter, set by the visa-waiver agreement for your nationality (${F.stayRange}).`,
+        p: `The ${F.validYears}-year period is how long the authorisation can be used to board. How long you may remain in Korea on each visit is a separate matter, set by the visa-waiver agreement for your nationality (usually ${F.stayRange}; ${F.stayCanada} for Canadian passports).`,
       },
       { h2: "If the exemption applies to you" },
       {
@@ -357,7 +357,7 @@ const CORE: Page[] = [
     blocks: [
       { h2: "Do I need K-ETA right now?" },
       {
-        p: `Possibly not. A number of countries and regions are temporarily exempt until ${F.exemptionUntil}. Check your passport against the official list before applying.`,
+        p: `Possibly not. A number of countries and regions are temporarily exempt until ${F.exemptionUntil}. The official application shows a pop-up message when an exempt passport is scanned.`,
       },
       { h2: "How much is it?" },
       { p: `${F.fee}, about ${F.feeUsdApprox}, paid once. Higher prices elsewhere are agency charges.` },
@@ -381,7 +381,7 @@ const CORE: Page[] = [
     nav: "How long you can stay",
     title: "How long can you stay in Korea? The K-ETA does not decide this",
     description:
-      "A K-ETA does not set your permitted stay. The number comes from the visa-waiver arrangement with your country, and it ranges from 30 to 90 days.",
+      `A K-ETA does not set your permitted stay. It comes from your country's visa-waiver arrangement — usually ${F.stayRange}, but ${F.stayCanada} for Canadian passports.`,
     blocks: [
       {
         p: `This is the question most guides answer wrongly, because they copy the format used for other travel authorisations. A K-ETA is permission to board and to be assessed on arrival. It does not contain a length of stay. Your permitted stay comes from the visa-waiver arrangement between Korea and the country that issued your passport, and it is typically somewhere in the range of ${F.stayRange}.`,
@@ -402,10 +402,11 @@ const CORE: Page[] = [
       {
         ul: [
           `K-ETA validity — ${F.validYears} years, or until your passport expires`,
-          `Permitted stay — set per entry, from your country's arrangement (${F.stayRange})`,
+          `Permitted stay — set per entry, from your country's arrangement (usually ${F.stayRange}; ${F.stayCanada} for Canadian passports)`,
         ],
       },
       { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
+      { source: { label: "K-ETA — Eligible countries and allowed period of stay", url: "https://www.k-eta.go.kr/portal/guide/viewetaalification.do" } },
       {
         note: `⚠️ Many nationalities are temporarily exempt from K-ETA until ${F.exemptionUntil}. Being exempt from the K-ETA does not change your permitted stay — that still comes from the visa-waiver arrangement.`,
       },
@@ -473,7 +474,7 @@ const CORE: Page[] = [
           "Names as in the machine-readable zone, not as you normally write them",
           "Passport number character by character — 0 and O, 1 and I",
           "Nationality as shown on the passport, not where you live",
-          "A photo that meets the requirements — rejections are most often about the photo",
+          "A photo that meets the requirements",
         ],
       },
       { h2: "Only one official channel" },
@@ -482,7 +483,7 @@ const CORE: Page[] = [
       },
       { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
       {
-        note: `⚠️ Before applying at all, check whether your nationality is currently exempt. Exemption runs to ${F.exemptionUntil}, and applying while exempt gives you no benefit and no refund.`,
+        note: `⚠️ Before applying at all, check whether your nationality is currently exempt. Exemption runs to ${F.exemptionUntil}. Applying while exempt is optional: the fee is charged and not refunded, and the benefit named in the official notice is not having to submit an arrival card.`,
       },
     ],
   },
@@ -612,21 +613,21 @@ const CORE: Page[] = [
     nav: "If you are exempt",
     title: `What to do if your country is exempt from the K-ETA until ${F.exemptionUntil}`,
     description:
-      "Many nationalities do not currently need a K-ETA at all. Applying anyway costs money and gives you nothing. Here is how to check, and what still applies.",
+      "Many nationalities do not currently need a K-ETA at all. Applying anyway is optional and the fee is charged. Here is how to check, and what still applies.",
     blocks: [
       {
-        p: `A large number of countries are temporarily exempt from the K-ETA requirement until ${F.exemptionUntil}. If your passport is on that list, you do not need to apply, and applying gives you no advantage at the border.`,
+        p: `A large number of countries are temporarily exempt from the K-ETA requirement until ${F.exemptionUntil}. If your nationality is exempt, you do not need to apply. You may still apply: the official notice says exempt travellers who want the benefits of a K-ETA approval, such as not having to submit an arrival card, may do so, and the fee is charged.`,
       },
       { h2: "Check first, pay second" },
       {
-        p: `The exemption list is published on the official portal and it changes. ⚠️ Reports have described the exemption as covering anywhere from 22 to 67 countries and territories, and those figures do not agree — so do not rely on a number you read in an article. Check the list itself for your passport.`,
+        p: `The official extension notice does not list the exempt countries and regions. Instead, exempt travellers get a pop-up message when they scan their passport photo page during the application. ⚠️ Reports have given different numbers of exempt countries. The figure 67 that appears in some of them is, according to the official FAQ, the number of visa-waiver countries and regions eligible for K-ETA — not the number of exempt countries. Do not rely on a number you read in an article; check your own passport in the official application.`,
       },
       { h2: "If you are exempt and apply anyway" },
       {
         ul: [
           `You pay ${F.fee} for something you did not need`,
           "There is no refund",
-          "You get no priority and no faster processing at the border",
+          "The benefit named in the official notice is that you do not have to submit an arrival card",
         ],
       },
       { h2: "What still applies while you are exempt" },
@@ -646,6 +647,8 @@ const CORE: Page[] = [
         p: `The exemption currently runs to ${F.exemptionUntil}. If it is not extended, travellers from those countries will need a K-ETA again. Check the official portal close to your travel date rather than relying on what was true when you last visited.`,
       },
       { source: { label: "K-ETA official portal", url: "https://www.k-eta.go.kr/portal/apply/index.do" } },
+      { source: { label: "K-ETA notice — Extension of K-ETA temporary exemption (posted 23 December 2025)", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=299707" } },
+      { source: { label: "K-ETA — Frequently asked questions", url: "https://www.k-eta.go.kr/portal/board/viewboardlist.do?tmpltNm=faq2" } },
       {
         note: `⚠️ The most common way to lose money on a K-ETA is not the fee — it is paying a third-party site to submit an application you did not need in the first place.`,
       },

@@ -94,7 +94,7 @@ export const fr: LangContent = {
       ],
       ["Passeport sans exemption de visa", "Sans objet", "Il vous faut un visa, pas une K-ETA", "selon le visa"],
     ],
-    note: `Les chiffres publiés sur le nombre de pays dispensés se contredisent (22 pays, 67 pays selon les sources). Nous n'en citons donc aucun : seule la liste officielle sur ${F.officialHost} fait foi. Vérifié le 17 août 2026.`,
+    note: `Les chiffres publiés sur le nombre de pays dispensés se contredisent (22 pays selon certaines sources). Le chiffre de 67, également cité, correspond selon la FAQ officielle au nombre de pays et régions exemptés de visa éligibles à la K-ETA — et non au nombre de pays dispensés. Nous n'en citons donc aucun : seule la liste officielle sur ${F.officialHost} fait foi. Vérifié le 17 août 2026.`,
   },
   steps: {
     h2: "La marche à suivre lorsqu'une demande est nécessaire",
@@ -211,7 +211,7 @@ export const fr: LangContent = {
           ul: [
             `Site officiel : ${F.officialHost}`,
             "Aucune procédure d'urgence payante n'existe officiellement",
-            "Une personne dispensée qui paie n'obtient aucun avantage en retour",
+            "Une personne dispensée qui dépose une demande paie les frais ; l'avantage indiqué par l'avis officiel est la dispense de carte de débarquement",
           ],
         },
         {
@@ -223,7 +223,7 @@ export const fr: LangContent = {
       slug: "keta-documents",
       title: "Ce qu'il faut préparer pour une demande de K-ETA",
       description:
-        "Les informations réellement demandées, et la raison la plus fréquente de refus d'une photo.",
+        "Les informations réellement demandées, et les exigences pour la photo.",
       blocks: [
         { h2: "À préparer" },
         {
@@ -235,9 +235,9 @@ export const fr: LangContent = {
             "Un moyen de paiement (carte bancaire)",
           ],
         },
-        { h2: "C'est la photo qui pose le plus de problèmes" },
+        { h2: "Les exigences pour la photo" },
         {
-          p: "La photo doit être récente, de face, sur fond neutre. La cause de refus la plus fréquente est de loin une ombre sur le visage ou le fond, suivie des couvre-chefs, des verres teintés et des photos anciennes. Devant un mur blanc, avec une lumière uniforme, c'est le plus sûr.",
+          p: "La photo doit être récente, de face, sur fond neutre. Selon la FAQ officielle : en couleur, au format JPG, 20 Mo au maximum, sans chapeau, foulard ni lunettes de soleil, visage de face (environ 75 % de l'image), yeux ouverts et regard droit vers l'objectif. Devant un mur blanc, avec une lumière uniforme, c'est le plus sûr.",
         },
         { h2: "Si l'hébergement n'est pas encore réservé" },
         {
@@ -480,7 +480,7 @@ export const fr: LangContent = {
         { h2: "Les pièges habituels" },
         {
           ul: [
-            "Orthographe du nom différente de celle du passeport (le cas le plus fréquent)",
+            "Orthographe du nom différente de celle du passeport",
             "Photo non conforme et donc rejetée",
             "Site d'intermédiaire pris pour le site officiel, avec des frais de service payés en trop",
             "Demande déposée un ou deux jours avant le départ : en cas d'examen manuel, le délai devient trop court",

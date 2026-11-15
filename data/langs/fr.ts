@@ -53,7 +53,7 @@ export const fr: LangContent = {
   whatIs: {
     h2: "Faut-il en demander une aujourd'hui ?",
     p1: `Non. Dans le cadre de sa campagne touristique, la Corée du Sud a suspendu l'obligation de K-ETA pour plusieurs pays, et cette suspension a déjà été prolongée à plusieurs reprises. L'échéance actuelle est le ${EXEMPT_UNTIL} : d'ici là, un passeport français embarque sans K-ETA.`,
-    p2: `Cette dispense reste toutefois temporaire. Sans nouvelle prolongation, l'obligation s'appliquera de nouveau à partir du 1er janvier 2027. Si votre voyage se situe autour du changement d'année, revérifiez la liste juste avant le départ : elle a déjà été modifiée par le passé.`,
+    p2: `Cette dispense reste toutefois temporaire. Sans nouvelle prolongation, l'obligation s'appliquera de nouveau à partir du 1er janvier 2027. Si votre voyage se situe autour du changement d'année, revérifiez votre situation juste avant le départ : la dispense a déjà été modifiée par le passé.`,
   },
   features: [
     {
@@ -71,7 +71,7 @@ export const fr: LangContent = {
   ],
   eligibility: {
     h2: "Que faire selon votre situation",
-    lead: "La réponse dépend de votre passeport et de votre date d'entrée. La dispense a déjà été prolongée plus d'une fois : c'est la liste officielle qui fait foi.",
+    lead: "La réponse dépend de votre passeport et de votre date d'entrée. La dispense a déjà été prolongée plus d'une fois. Aucune liste des pays dispensés n'est publiée : c'est le message qui s'affiche dans la demande officielle, au moment où vous scannez votre passeport, qui fait foi.",
     th: ["Votre situation", "K-ETA nécessaire ?", "Ce qu'il faut faire", "Coût"],
     rows: [
       [
@@ -83,25 +83,25 @@ export const fr: LangContent = {
       [
         "Entrée à partir du 1er janvier 2027",
         "Probablement oui",
-        "Revérifiez la liste avant le départ et demandez à l'avance si nécessaire",
+        "Revérifiez la situation avant le départ et demandez à l'avance si nécessaire",
         F.fee,
       ],
       [
-        "Pays exempté de visa mais absent de la liste de dispense",
+        "Pays exempté de visa mais non dispensé de K-ETA",
         "Oui",
         `Demande sur ${F.officialHost}`,
         F.fee,
       ],
       ["Passeport sans exemption de visa", "Sans objet", "Il vous faut un visa, pas une K-ETA", "selon le visa"],
     ],
-    note: `Les chiffres publiés sur le nombre de pays dispensés se contredisent (22 pays selon certaines sources). Le chiffre de 67, également cité, correspond selon la FAQ officielle au nombre de pays et régions exemptés de visa éligibles à la K-ETA — et non au nombre de pays dispensés. Nous n'en citons donc aucun : seule la liste officielle sur ${F.officialHost} fait foi. Vérifié le 17 août 2026.`,
+    note: `Les chiffres publiés sur le nombre de pays dispensés se contredisent (22 pays selon certaines sources). Le chiffre de 67, également cité, correspond selon la FAQ officielle au nombre de pays et régions exemptés de visa éligibles à la K-ETA — et non au nombre de pays dispensés. Nous n'en citons donc aucun. L'avis officiel de prolongation ne dresse pas non plus la liste des pays dispensés : lorsque vous scannez la page photo de votre passeport dans la demande sur ${F.officialHost}, un message (pop-up) indique si vous êtes dispensé. Vérifié le 17 août 2026.`,
   },
   steps: {
     h2: "La marche à suivre lorsqu'une demande est nécessaire",
     items: [
       {
         h: "Vérifier d'abord si vous êtes dispensé",
-        p: `La dispense court jusqu'au ${EXEMPT_UNTIL}. La liste a déjà changé : contrôlez-la avant le départ sur ${F.officialHost}.`,
+        p: `La dispense court jusqu'au ${EXEMPT_UNTIL}. Aucune liste n'est publiée : lorsque vous commencez une demande sur ${F.officialHost} ou dans l'application officielle et scannez votre passeport, un message vous signale que vous êtes dispensé. La dispense a déjà été modifiée : vérifiez avant le départ.`,
       },
       {
         h: "Utiliser le site officiel ou l'application officielle",
@@ -144,7 +144,7 @@ export const fr: LangContent = {
     items: [
       {
         q: "Un passeport français a-t-il besoin d'une K-ETA en ce moment ?",
-        a: `Non. L'obligation est suspendue pour la France et d'autres pays jusqu'au ${EXEMPT_UNTIL}. D'ici là vous embarquez sans demande, mais vérifiez la liste avant le départ sur ${F.officialHost} : elle a déjà été modifiée.`,
+        a: `Non. L'obligation est suspendue pour la France et d'autres pays jusqu'au ${EXEMPT_UNTIL}. D'ici là vous embarquez sans demande. La dispense a déjà été modifiée : revérifiez avant le départ sur ${F.officialHost}, où aucune liste n'est publiée — c'est un message affiché lors du scan du passeport dans la demande officielle qui l'indique.`,
       },
       {
         q: `Que se passera-t-il après le ${EXEMPT_UNTIL} ?`,
@@ -197,11 +197,11 @@ export const fr: LangContent = {
       blocks: [
         { h2: "Avant le tarif, la question de l'obligation" },
         {
-          p: `Les passeports français figurent actuellement sur la liste de dispense (jusqu'au ${F.exemptionUntil}). Dans la plupart des cas, vous n'avez donc ni demande à déposer ni frais à payer. Réglez d'abord cette question, le tarif vient ensuite.`,
+          p: `Les passeports français relèvent actuellement de la dispense temporaire (jusqu'au ${EXEMPT_UNTIL}). Dans la plupart des cas, vous n'avez donc ni demande à déposer ni frais à payer. Réglez d'abord cette question, le tarif vient ensuite.`,
         },
         { h2: "Les frais officiels lorsqu'une demande est nécessaire" },
         {
-          p: `Si une demande s'impose, les frais sont de ${F.fee} (${F.feeUsdApprox}). C'est le montant versé à l'administration coréenne ; aucun autre frais n'est nécessaire.`,
+          p: `Si une demande s'impose, les frais sont de ${F.fee} (${USD_APPROX}). C'est le montant versé à l'administration coréenne ; aucun autre frais n'est nécessaire.`,
         },
         { h2: "Pourquoi les prix vus en ligne sont plus élevés" },
         {
@@ -256,7 +256,7 @@ export const fr: LangContent = {
       blocks: [
         { h2: "Ce que dit l'administration" },
         {
-          p: `L'instruction se fait en général sous ${F.decisionTypical}. C'est un ordre de grandeur, pas un engagement : en haute saison, le délai peut s'allonger.`,
+          p: `L'instruction se fait en général sous ${DECISION}. C'est un ordre de grandeur, pas un engagement : en haute saison, le délai peut s'allonger.`,
         },
         { h2: "Ce qui ralentit le traitement" },
         {
@@ -288,11 +288,11 @@ export const fr: LangContent = {
         },
         { h2: "Nouveau passeport, nouvelle K-ETA" },
         {
-          p: "L'autorisation est liée au numéro de passeport. Après un renouvellement, une perte ou une réédition, l'ancienne K-ETA n'est plus utilisable : il faut redéposer une demande avec le nouveau passeport. C'est le point le plus souvent oublié.",
+          p: "L'autorisation est liée au numéro de passeport. Après un renouvellement, une perte ou une réédition, l'ancienne K-ETA n'est plus utilisable : il faut redéposer une demande avec le nouveau passeport. C'est un point facile à oublier.",
         },
         { h2: "Validité n'est pas durée de séjour" },
         {
-          p: `C'est la confusion la plus répandue. Les ${F.validYears} ans indiquent combien de temps l'autorisation reste utilisable, pas combien de temps vous pouvez rester à chaque entrée. Cette durée découle de l'accord d'exemption de visa et se situe en général entre ${F.stayRange}.`,
+          p: `C'est une confusion fréquente. Les ${F.validYears} ans indiquent combien de temps l'autorisation reste utilisable, pas combien de temps vous pouvez rester à chaque entrée. Cette durée découle de l'accord d'exemption de visa et est en général de ${STAY_RANGE}.`,
         },
         {
           note: "Le nombre de jours effectivement accordé est fixé par l'officier d'immigration à l'arrivée.",
@@ -333,11 +333,11 @@ export const fr: LangContent = {
       blocks: [
         { h2: "Faut-il en demander une aujourd'hui ?" },
         {
-          p: `La France figure actuellement sur la liste de dispense (jusqu'au ${F.exemptionUntil}). Cette liste peut changer : vérifiez-la sur le site officiel avant le départ.`,
+          p: `Non : la France relève actuellement de la dispense temporaire (jusqu'au ${EXEMPT_UNTIL}). Aucune liste des pays dispensés n'est publiée ; dans la demande officielle, un message s'affiche lorsque vous scannez un passeport dispensé. La dispense peut changer : vérifiez avant le départ.`,
         },
         { h2: "Et si je demande quand même pendant la dispense ?" },
         {
-          p: "Il n'y a aucune conséquence négative, mais les frais ne sont pas remboursés et n'apportent rien d'autre que la dispense de carte de débarquement papier.",
+          p: "C'est facultatif et sans conséquence négative. Les frais sont dus et ne sont pas remboursés ; l'avantage indiqué par l'avis officiel est de ne pas avoir à remplir la carte d'arrivée.",
         },
         { h2: "La K-ETA est-elle un visa ?" },
         {
@@ -345,7 +345,7 @@ export const fr: LangContent = {
         },
         { h2: "Combien de temps puis-je rester ?" },
         {
-          p: `Cela relève de l'accord d'exemption de visa, en général ${F.stayRange} ; 90 jours sont indiqués pour les passeports français. La K-ETA ne fixe pas cette durée.`,
+          p: `Cela relève de l'accord d'exemption de visa, en général ${STAY_RANGE} ; 90 jours sont indiqués pour les passeports français. La K-ETA ne fixe pas cette durée.`,
         },
         { h2: "En ai-je besoin pour une simple correspondance ?" },
         {
@@ -452,7 +452,7 @@ export const fr: LangContent = {
           ],
         },
         {
-          note: `La liste et l'échéance peuvent encore évoluer. Ne vous fiez pas à d'anciens articles de blog : vérifiez ${F.officialHost} juste avant le départ.`,
+          note: `La dispense et son échéance peuvent encore évoluer. Ne vous fiez pas à d'anciens articles de blog : vérifiez ${F.officialHost} juste avant le départ.`,
         },
         { h2: "Si vous souhaitez demander malgré la dispense" },
         {

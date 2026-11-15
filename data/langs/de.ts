@@ -53,7 +53,7 @@ export const de: LangContent = {
   whatIs: {
     h2: "Brauche ich jetzt eine K-ETA — ja oder nein?",
     p1: `Nein. Im Rahmen der Tourismuskampagne hat Südkorea die K-ETA-Pflicht für mehrere Länder ausgesetzt, und die Aussetzung wurde mehrfach verlängert. Der aktuelle Stichtag ist der ${EXEMPT_UNTIL}. Bis dahin reisen Sie mit einem deutschen Reisepass ohne K-ETA.`,
-    p2: `Die Befreiung ist aber ausdrücklich befristet. Wird sie nicht erneut verlängert, gilt ab dem 1. Januar 2027 wieder die Antragspflicht. Wenn Ihre Reise um den Jahreswechsel liegt, prüfen Sie die Liste kurz vor Abflug noch einmal — sie wurde in der Vergangenheit bereits geändert.`,
+    p2: `Die Befreiung ist aber ausdrücklich befristet. Wird sie nicht erneut verlängert, gilt ab dem 1. Januar 2027 wieder die Antragspflicht. Wenn Ihre Reise um den Jahreswechsel liegt, prüfen Sie kurz vor Abflug auf ${F.officialHost}, ob die Befreiung verlängert wurde — eine Länderliste wird dort nicht veröffentlicht; ob Ihr Reisepass befreit ist, zeigt ein Pop-up-Hinweis, wenn Sie ihn im offiziellen Antrag scannen.`,
   },
   features: [
     {
@@ -71,7 +71,7 @@ export const de: LangContent = {
   ],
   eligibility: {
     h2: "Was Sie jetzt tun sollten",
-    lead: "Die Antwort hängt von Ihrem Reisepass und vom Einreisedatum ab. Die Befreiung wurde schon mehr als einmal verlängert — maßgeblich ist immer die offizielle Liste.",
+    lead: "Die Antwort hängt von Ihrem Reisepass und vom Einreisedatum ab. Die Befreiung wurde schon mehr als einmal verlängert. Eine offizielle Länderliste gibt es nicht: Ob Ihr Reisepass befreit ist, zeigt ein Pop-up-Hinweis, wenn Sie ihn im offiziellen Antrag (Website oder App) scannen.",
     th: ["Ihre Situation", "K-ETA nötig?", "Was zu tun ist", "Kosten"],
     rows: [
       [
@@ -83,25 +83,25 @@ export const de: LangContent = {
       [
         "Einreise ab 1. Januar 2027",
         "Voraussichtlich ja",
-        "Liste vor Abflug erneut prüfen und rechtzeitig beantragen",
+        `Kurz vor Abflug auf ${F.officialHost} prüfen, ob verlängert wurde, und rechtzeitig beantragen`,
         F.fee,
       ],
       [
-        "Visumfreies Land, aber nicht auf der Befreiungsliste",
+        "Visumfreies Land, aber nicht von der K-ETA befreit",
         "Ja",
         `Antrag auf ${F.officialHost}`,
         F.fee,
       ],
       ["Reisepass ohne Visumbefreiung", "Nicht anwendbar", "Sie brauchen ein Visum, keine K-ETA", "je nach Visum"],
     ],
-    note: `Zur Zahl der befreiten Länder kursieren widersprüchliche Angaben (etwa 22 Länder). Die ebenfalls genannte Zahl 67 ist laut offizieller FAQ die Zahl der visumfreien Länder und Regionen, für die die K-ETA gilt — nicht die Zahl der befreiten Länder. Deshalb nennen wir hier keine Zahl — maßgeblich ist die offizielle Liste auf ${F.officialHost}. Geprüft am 17. August 2026.`,
+    note: `Zur Zahl der befreiten Länder kursieren widersprüchliche Angaben (etwa 22 Länder). Die ebenfalls genannte Zahl 67 ist laut offizieller FAQ die Zahl der visumfreien Länder und Regionen, für die die K-ETA gilt — nicht die Zahl der befreiten Länder. Deshalb nennen wir hier keine Zahl. Auch die offizielle Mitteilung zur Verlängerung führt die befreiten Länder nicht auf; befreite Reisende erhalten beim Scannen der Passdatenseite im Antrag auf ${F.officialHost} einen Pop-up-Hinweis. Geprüft am 17. August 2026.`,
   },
   steps: {
     h2: "Der Ablauf, wenn ein Antrag nötig ist",
     items: [
       {
         h: "Zuerst prüfen, ob Sie überhaupt befreit sind",
-        p: `Die Befreiung gilt bis zum ${EXEMPT_UNTIL}. Die Liste wurde schon geändert — prüfen Sie sie vor dem Abflug auf ${F.officialHost}.`,
+        p: `Die Befreiung gilt bis zum ${EXEMPT_UNTIL}. Eine Länderliste wird nicht veröffentlicht: Wenn Sie den Antrag auf ${F.officialHost} oder in der offiziellen App beginnen und Ihre Passdatenseite scannen, zeigt ein Pop-up-Hinweis, ob Sie befreit sind.`,
       },
       {
         h: "Offizielle Website oder offizielle App nutzen",
@@ -144,7 +144,7 @@ export const de: LangContent = {
     items: [
       {
         q: "Brauche ich mit deutschem Reisepass gerade eine K-ETA?",
-        a: `Nein. Die Pflicht ist für Deutschland und weitere Länder bis zum ${EXEMPT_UNTIL} ausgesetzt. Bis dahin reisen Sie ohne Antrag — prüfen Sie die Liste aber vor Abflug auf ${F.officialHost}, sie hat sich schon geändert.`,
+        a: `Nein. Die Pflicht ist für Deutschland und weitere Länder bis zum ${EXEMPT_UNTIL} ausgesetzt. Bis dahin reisen Sie ohne Antrag. Eine offizielle Länderliste gibt es nicht; ob Ihr Reisepass befreit ist, zeigt ein Pop-up-Hinweis, wenn Sie ihn im offiziellen Antrag auf ${F.officialHost} scannen.`,
       },
       {
         q: `Was passiert nach dem ${EXEMPT_UNTIL}?`,
@@ -197,11 +197,11 @@ export const de: LangContent = {
       blocks: [
         { h2: "Vor der Gebühr kommt die Frage, ob Sie beantragen müssen" },
         {
-          p: `Deutsche Reisepässe stehen derzeit auf der Befreiungsliste (bis ${F.exemptionUntil}). In den meisten Fällen müssen Sie also weder beantragen noch zahlen. Klären Sie das zuerst — danach erst die Gebühr.`,
+          p: `Deutsche Reisepässe sind derzeit von der K-ETA befreit (bis ${EXEMPT_UNTIL}). In den meisten Fällen müssen Sie also weder beantragen noch zahlen. Klären Sie das zuerst — danach erst die Gebühr.`,
         },
         { h2: "Die offizielle Gebühr, wenn ein Antrag nötig ist" },
         {
-          p: `Ist ein Antrag nötig, beträgt die Gebühr ${F.fee} (${F.feeUsdApprox}). Das ist der Betrag, der an die koreanische Behörde geht. Weitere notwendige Kosten gibt es nicht.`,
+          p: `Ist ein Antrag nötig, beträgt die Gebühr ${F.fee} (${USD_APPROX}). Das ist der Betrag, der an die koreanische Behörde geht. Weitere notwendige Kosten gibt es nicht.`,
         },
         { h2: "Warum im Netz höhere Preise stehen" },
         {
@@ -256,7 +256,7 @@ export const de: LangContent = {
       blocks: [
         { h2: "Die offizielle Angabe" },
         {
-          p: `Offiziell wird in der Regel innerhalb von ${F.decisionTypical} entschieden. Das ist ein Richtwert, keine Zusage. In der Hauptreisezeit kann es länger dauern.`,
+          p: `Offiziell wird in der Regel innerhalb von ${DECISION} entschieden. Das ist ein Richtwert, keine Zusage. In der Hauptreisezeit kann es länger dauern.`,
         },
         { h2: "Was die Bearbeitung verlangsamt" },
         {
@@ -287,11 +287,11 @@ export const de: LangContent = {
         },
         { h2: "Neuer Reisepass, neue K-ETA" },
         {
-          p: "Die Genehmigung ist an die Passnummer gebunden. Nach Verlängerung, Verlust oder Neuausstellung ist die alte K-ETA nicht mehr nutzbar; Sie beantragen mit dem neuen Pass erneut. Das wird am häufigsten übersehen.",
+          p: "Die Genehmigung ist an die Passnummer gebunden. Nach Verlängerung, Verlust oder Neuausstellung ist die alte K-ETA nicht mehr nutzbar; Sie beantragen mit dem neuen Pass erneut. Das wird leicht übersehen.",
         },
         { h2: "Gültigkeit ist nicht Aufenthaltsdauer" },
         {
-          p: `Hier werden zwei Dinge verwechselt. Die ${F.validYears} Jahre sagen, wie lange die Genehmigung nutzbar ist — nicht, wie lange Sie pro Einreise bleiben dürfen. Das ergibt sich aus dem Visumbefreiungsabkommen und liegt üblicherweise bei ${F.stayRange}.`,
+          p: `Hier werden zwei Dinge verwechselt. Die ${F.validYears} Jahre sagen, wie lange die Genehmigung nutzbar ist — nicht, wie lange Sie pro Einreise bleiben dürfen. Das ergibt sich aus dem Visumbefreiungsabkommen und liegt üblicherweise bei ${STAY_RANGE}.`,
         },
         {
           note: "Wie viele Tage Ihnen tatsächlich gewährt werden, entscheidet die Grenzbehörde bei der Ankunft.",
@@ -332,11 +332,11 @@ export const de: LangContent = {
       blocks: [
         { h2: "Brauche ich jetzt eine oder nicht?" },
         {
-          p: `Deutschland steht derzeit auf der Befreiungsliste (bis ${F.exemptionUntil}). Die Liste kann sich ändern — prüfen Sie sie vor Abflug auf der offiziellen Seite.`,
+          p: `Deutschland ist derzeit von der K-ETA befreit (bis ${EXEMPT_UNTIL}). Eine offizielle Länderliste gibt es nicht; ob Ihr Reisepass befreit ist, zeigt ein Pop-up-Hinweis, wenn Sie ihn im offiziellen Antrag scannen. Prüfen Sie vor Abflug auf der offiziellen Seite, ob die Befreiung verlängert wurde.`,
         },
         { h2: "Was, wenn ich während der Befreiung trotzdem beantrage?" },
         {
-          p: "Das hat keine negativen Folgen, die Gebühr wird aber nicht erstattet und bringt Ihnen keinen Vorteil außer dem Wegfall der Papier-Einreisekarte.",
+          p: "Das ist freiwillig und hat keine negativen Folgen. Die Gebühr wird fällig und nicht erstattet; der Vorteil laut offizieller Mitteilung: Sie müssen keine Einreisekarte abgeben.",
         },
         { h2: "Ist die K-ETA ein Visum?" },
         {
@@ -344,7 +344,7 @@ export const de: LangContent = {
         },
         { h2: "Wie lange darf ich bleiben?" },
         {
-          p: `Das regelt das Visumbefreiungsabkommen, üblicherweise ${F.stayRange}; für deutsche Reisepässe wird 90 Tage genannt. Die K-ETA selbst legt das nicht fest.`,
+          p: `Das regelt das Visumbefreiungsabkommen, üblicherweise ${STAY_RANGE}; für deutsche Reisepässe wird 90 Tage genannt. Die K-ETA selbst legt das nicht fest.`,
         },
         { h2: "Brauche ich sie beim Umsteigen?" },
         {
@@ -451,7 +451,7 @@ export const de: LangContent = {
           ],
         },
         {
-          note: `Liste und Frist können sich erneut ändern. Verlassen Sie sich nicht auf ältere Blogbeiträge, sondern prüfen Sie kurz vor Abflug ${F.officialHost}.`,
+          note: `Befreiung und Frist können sich erneut ändern. Verlassen Sie sich nicht auf ältere Blogbeiträge, sondern prüfen Sie kurz vor Abflug ${F.officialHost}.`,
         },
         { h2: "Wenn Sie trotz Befreiung beantragen wollen" },
         {

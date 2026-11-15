@@ -31,6 +31,8 @@ export type Article = {
   checked?: string;
   /** 入国後の実用ページ（ハブ以外）。言語トップの一覧には出さない */
   practical?: boolean;
+  /** 言語版に追加した日（YYYY-MM-DD）。sitemap の lastmod に使う（2026-11-15 の英語ページ横展開から） */
+  added?: string;
 };
 
 /** 入国後の実用ページ一式（言語ごとに data/langs/{code}-practical.ts）。index.ts で articles に合流させる */

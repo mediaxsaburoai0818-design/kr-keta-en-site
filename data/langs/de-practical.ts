@@ -19,6 +19,8 @@ const LIQUID_BAG = "1 Liter"; // = F.liquidBag
 const LIQUID_ML = "100 ml"; // = F.liquidMl
 
 const CHECKED = "12. Oktober 2026";
+/** 2026-11-15 hinzugefügte Seite (flughaefen-korea), an diesem Tag amtlich geprüft */
+const CHECKED_NEW = "15. November 2026";
 
 export const dePractical: PracticalPack = {
   ui: { faq: "Häufige Fragen", source: "Quelle", related: "Weitere Themen" },
@@ -37,18 +39,99 @@ export const dePractical: PracticalPack = {
           p: `Eine K-ETA – oder die vorübergehende Befreiung, die bis zum ${EXEMPT_UNTIL} für viele Staatsangehörigkeiten gilt, auch für Deutschland – klärt nur eine Frage: ob Sie ohne Visum in ein Flugzeug nach Korea steigen dürfen. Was am Flughafen passiert, was Sie mitnehmen dürfen, wie Sie bezahlen, wie Sie sich fortbewegen oder was Sie tun, wenn etwas schiefgeht, steht darin nicht. Darum geht es auf diesen Seiten. Jede Seite ist anhand der zuständigen koreanischen Behörde geprüft und verlinkt auf sie.`,
         },
         { h2: "An der Grenze" },
-        { links: ["einreisekarte-und-e-gates", "keta-befreiung-2026", "medikamente-mitnehmen", "reisen-mit-kindern"] },
+        { links: ["einreisekarte-und-e-gates", "grenzkontrolle-bei-ankunft", "quarantaene-lebensmittel", "zollfreimengen-korea", "keta-befreiung-2026", "medikamente-mitnehmen", "reisen-mit-kindern", "reisepass-und-angaben"] },
         { h2: "Geld" },
         { links: ["geld-und-trinkgeld", "steuerrueckerstattung-korea"] },
         { h2: "Unterwegs und erreichbar" },
-        { links: ["nahverkehr-und-t-money", "autofahren-in-korea", "handy-und-sim-karte", "steckdosen-und-strom", "feiertage-korea"] },
+        { links: ["flughaefen-korea", "nahverkehr-und-t-money", "autofahren-in-korea", "handy-und-sim-karte", "steckdosen-und-strom", "feiertage-korea"] },
         { h2: "Gesundheit und Sicherheit" },
         { links: ["gesundheitsversorgung-korea", "notrufnummern-korea", "rauchen-vapes-alkohol"] },
         { h2: "Rückflug" },
-        { links: ["fluessigkeiten-und-powerbanks", "korea-aufenthaltsdauer"] },
+        { links: ["fluessigkeiten-und-powerbanks", "ausreise-und-wiedereinreise", "korea-aufenthaltsdauer"] },
         {
           note: "Wozu wir keine eigene Seite geschrieben haben: die Gültigkeit des Reisepasses. Das koreanische Recht verlangt einen gültigen Reisepass; eine amtliche Mindest-Restgültigkeit für visumfrei Einreisende haben wir nicht gefunden. Fluggesellschaften und Transitländer können eigene Regeln haben – fragen Sie dort nach.",
         },
+      ],
+    },
+    {
+      slug: "flughaefen-korea",
+      enSlug: "major-airports",
+      added: "2026-11-15",
+      title: "Koreas wichtigste internationale Flughäfen: Incheon, Gimpo, Gimhae und Jeju",
+      description:
+        "Incheon-Terminal auf dem E-Ticket prüfen, für die Einreise 1–2 Stunden einplanen, bevor Sie Anschlüsse buchen, und nur die offiziellen Taxistände nutzen.",
+      checked: CHECKED_NEW,
+      practical: true,
+      related: ["ankunft-in-korea", "einreisekarte-und-e-gates", "umsteigen-in-korea", "nahverkehr-und-t-money"],
+      blocks: [
+        {
+          p: "Die meisten internationalen Besucher kommen am Incheon International Airport an, betrieben von der Incheon International Airport Corporation. Gimpo, Gimhae (Busan) und Jeju werden von der Korea Airports Corporation betrieben.",
+        },
+        { h2: "Incheon: zwei Terminals" },
+        {
+          ul: [
+            "Terminal 1: 272 Gonghang-ro, Yeongjong-gu, Incheon",
+            "Terminal 2: 446 Je2terminal-daero, Yeongjong-gu, Incheon",
+            "Für Terminal 2 sind unter anderem Korean Air, Asiana Airlines, Jin Air, Air Seoul, Air Busan und Delta Air Lines aufgeführt",
+            "Für Terminal 1 sind unter anderem Jeju Air, Trinity Airways, Eastar Jet, Air Premia, PARATA AIR, Aero K Airlines und weitere ausländische Fluggesellschaften aufgeführt",
+            "Auskunft: 1577-2600 (7–22 Uhr, ganzjährig)",
+          ],
+        },
+        {
+          note: "Laut Flughafen Incheon kann Ihr tatsächliches Terminal wegen Codeshare-Flügen und anderer Vereinbarungen der Fluggesellschaften abweichen. Prüfen Sie es auf Ihrem E-Ticket.",
+        },
+        { h2: "Ankunft in Incheon" },
+        {
+          ul: [
+            "Kommen Sie am Concourse (Satellitengebäude) an, fahren Sie mit dem Shuttle-Zug (rund um die Uhr) zum Terminal",
+            "Danach folgt die Einreisekontrolle. Laut Anleitung des Flughafens Incheon füllen nur nicht registrierte Ausländer eine Einreisekarte aus; die K-ETA-Anleitung ergänzt, dass Inhaber einer K-ETA keine abgeben müssen. Mit deutschem Reisepass ohne K-ETA füllen Sie also eine aus",
+            "Nach der Einreisekontrolle geht es mit der Rolltreppe ins Erdgeschoss zur Gepäckausgabe",
+          ],
+        },
+        { h2: "Von Incheon in die Stadt" },
+        {
+          ul: [
+            "Der Flughafen Incheon bittet, nach der Landung 1–2 Stunden für die Einreise einzuplanen, wenn Sie öffentliche Verkehrsmittel buchen",
+            "Die Stationen der Airport Railroad (AREX) liegen im Transportation Center im Untergeschoss 1 jedes Terminals. Laut Streckenplan sind es etwa 44 Minuten von Terminal 1 bis zum Flughafen Gimpo, wo Sie in die U-Bahn-Linien 5 und 9, die Gimpo Goldline und die Seohae Line umsteigen können",
+            "Die AREX verbindet auch die beiden Terminals: etwa 6 Minuten, 1.050 Won – die Fahrt ist kostenpflichtig",
+            "Bustickets gibt es in Terminal 1 drinnen neben den Ausgängen 4 und 9 und draußen in der Nähe der Ausgänge 4, 6, 7, 8, 11 und 13",
+            "Taxis: Der Flughafen Incheon warnt, dass illegales Anwerben und überhöhte Preise durch Call-Vans, die sich als Taxis ausgeben, häufig vorkommen, und rät zu den offiziellen Taxiständen",
+            "Gepäckzustellung (T-Luggage): Schalter gegenüber Check-in-Schalter B im 3. Stock von Terminal 1 und gegenüber Check-in-Schalter H im 3. Stock von Terminal 2",
+          ],
+        },
+        { source: { label: "Incheon International Airport — Arrival guide and terminals", url: "https://www.airport.kr/ap_en/1439/subview.do" } },
+        { source: { label: "Incheon International Airport — Bus", url: "https://www.airport.kr/ap_en/1502/subview.do" } },
+        { source: { label: "Incheon International Airport — Airport Railroad", url: "https://www.airport.kr/ap_en/1512/subview.do" } },
+        { source: { label: "Incheon International Airport — Transfers between terminals", url: "https://www.airport.kr/ap_en/1525/subview.do" } },
+        { source: { label: "Incheon International Airport — Taxi", url: "https://www.airport.kr/ap_en/1515/subview.do" } },
+        { h2: "Gimpo (Seoul)" },
+        {
+          p: "Der Gimpo International Airport liegt in 112 Haneul-gil, Gangseo-gu, Seoul, und hat getrennte Terminals für Inlands- und Auslandsflüge. Der Bahnhof Gimpo Airport verbindet die Airport Railroad mit den U-Bahn-Linien 5 und 9, der Gimpo Goldline und der Seohae Line.",
+        },
+        { source: { label: "Korea Airports Corporation — Gimpo International Airport", url: "https://www.airport.co.kr/gimpoeng/cms/frCon/index.do?MENU_ID=510" } },
+        { h2: "Gimhae (Busan)" },
+        {
+          p: "Der Gimhae International Airport liegt in Gangseo-gu, Busan. Ein neues internationales Terminal wurde im Oktober 2007 eröffnet und im Juli 2017 erweitert. Der Limousinenbus nach Seomyeon und Bujeon fährt an beiden Terminals, international und national, von Bussteig 3 im Erdgeschoss ab.",
+        },
+        { source: { label: "Korea Airports Corporation — Gimhae International Airport", url: "https://www.airport.co.kr/gimhaeeng/cms/frCon/index.do?MENU_ID=300" } },
+        { h2: "Jeju" },
+        {
+          ul: [
+            "Der Jeju International Airport liegt in 2 Gonghang-ro, Jeju-si, Jeju-do. Der Limousinenbus 600 hält vor Gate 5",
+            `Seit dem 1. September 2022 brauchen Reisende aus K-ETA-berechtigten Ländern vor dem Einsteigen in ein Flugzeug oder Schiff, das aus dem Ausland nach Jeju fährt, eine K-ETA – es sei denn, für sie gilt eine Befreiung, wie überall in Korea. Für deutsche Reisepässe ist das derzeit bis zum ${EXEMPT_UNTIL} der Fall`,
+            "Daneben gibt es für Jeju eine eigene Visumbefreiung für Reise und Transit mit direktem internationalem Flug oder Schiff, mit einem Aufenthalt von 30 Tagen, der auf Jeju beschränkt ist. Einige Staatsangehörigkeiten sind ausgenommen; die Liste steht im Korea Visa Portal",
+          ],
+        },
+        { source: { label: "Korea Airports Corporation — Jeju International Airport", url: "https://www.airport.co.kr/jejueng/cms/frCon/index.do?MENU_ID=270" } },
+        { source: { label: "K-ETA notice — K-ETA required for Jeju-bound travel from 1 September 2022", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=53251" } },
+        { source: { label: "Korea Visa Portal — Visa-free entry guide", url: "https://www.visa.go.kr" } },
+        {
+          note: "Die Registrierung für die e-Gates am Ankunftstag – auch für Reisende mit deutschem Reisepass – erklären wir auf der Seite zu Einreisekarte und e-Gates.",
+        },
+      ],
+      faq: [
+        { q: "An welchem Terminal in Incheon komme ich an?", a: "Das hängt von der Fluggesellschaft ab, und bei Codeshare-Flügen kann es abweichen. Laut Flughafen Incheon prüfen Sie das Terminal auf Ihrem E-Ticket." },
+        { q: "Wie komme ich zwischen Terminal 1 und 2 in Incheon hin und her?", a: "Mit der Airport Railroad. Der Flughafen Incheon nennt etwa 6 Minuten und einen Fahrpreis von 1.050 Won; die Fahrt ist kostenpflichtig." },
       ],
     },
     {

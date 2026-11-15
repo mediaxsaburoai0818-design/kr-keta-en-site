@@ -47,18 +47,18 @@ export const zhTwPractical: PracticalPack = {
       related: ["arrival-card-and-e-gates", "keta-exemption-2026", "korea-entry-stay"],
       blocks: [
         {
-          p: `台灣目前在 K-ETA 暫時免除名單內，期限到 ${EXEMPT_UNTIL}。不論是免除還是持有 K-ETA，回答的都只是一件事：你能不能不辦簽證搭機前往韓國。至於在機場會遇到什麼、可以帶什麼、怎麼付款、怎麼移動、出事時該怎麼辦，K-ETA 並不會告訴你。以下各頁就是在補這一塊，每一頁都對照了負責的韓國政府單位，並附上連結。`,
+          p: `台灣目前適用 K-ETA 暫時免除，期限到 ${EXEMPT_UNTIL}。不論是免除還是持有 K-ETA，回答的都只是一件事：你能不能不辦簽證搭機前往韓國。至於在機場會遇到什麼、可以帶什麼、怎麼付款、怎麼移動、出事時該怎麼辦，K-ETA 並不會告訴你。以下各頁就是在補這一塊，每一頁都對照了負責的韓國政府單位，並附上連結。`,
         },
         { h2: "入境關口" },
-        { links: ["arrival-card-and-e-gates", "bringing-medicines", "travelling-with-children", "keta-exemption-2026"] },
+        { links: ["arrival-card-and-e-gates", "korea-border-checks", "korea-quarantine", "korea-customs-allowances", "bringing-medicines", "travelling-with-children", "keta-passport-details", "keta-exemption-2026"] },
         { h2: "錢的事" },
         { links: ["money-and-tipping", "tax-refund-for-tourists"] },
         { h2: "交通與聯絡" },
-        { links: ["transport-cards", "driving-in-korea", "phones-and-sim-cards", "power-plugs", "public-holidays"] },
+        { links: ["major-airports", "transport-cards", "driving-in-korea", "phones-and-sim-cards", "power-plugs", "public-holidays"] },
         { h2: "健康與安全" },
         { links: ["healthcare-for-visitors", "emergency-and-safety", "smoking-vaping-and-alcohol"] },
         { h2: "搭機回國" },
-        { links: ["airport-security-liquids", "korea-entry-stay"] },
+        { links: ["airport-security-liquids", "keta-leaving-and-returning", "korea-entry-stay"] },
         {
           note: "我們沒有另外寫的主題：護照效期。韓國法律要求持有效護照入境，但我們沒有找到官方針對免簽旅客規定的最低剩餘效期。航空公司與轉機國家可能另有規定，訂票前請向航空公司確認。",
         },
@@ -142,7 +142,7 @@ export const zhTwPractical: PracticalPack = {
       ],
       faq: [
         {
-          q: "台灣在 K-ETA 免除名單內，還要填入境卡嗎？",
+          q: "台灣適用 K-ETA 暫時免除，還要填入境卡嗎？",
           a: "要。適用暫時免除的旅客，以及依年齡免辦 K-ETA 的兒童與長者，都必須繳交入境卡——可線上填寫電子入境卡或填紙本。只有持有效 K-ETA 以免簽方式入境的人可以免交。",
         },
         {
@@ -449,7 +449,7 @@ export const zhTwPractical: PracticalPack = {
       blocks: [
         { h2: "K-ETA：依年齡免除" },
         {
-          p: `自 2023 年 7 月 3 日起，入境韓國當天 ${F.ketaChildMaxAge} 歲以下——以及 ${F.ketaSeniorMinAge} 歲以上——的旅客免辦 K-ETA。看的是入境當天的年齡：抵達前已滿 18 歲的青少年需要自己的 K-ETA。不過台灣目前在暫時免除名單內，所以在 ${EXEMPT_UNTIL} 前入境，不論幾歲都不需要 K-ETA。`,
+          p: `自 2023 年 7 月 3 日起，入境韓國當天 ${F.ketaChildMaxAge} 歲以下——以及 ${F.ketaSeniorMinAge} 歲以上——的旅客免辦 K-ETA。看的是入境當天的年齡：抵達前已滿 18 歲的青少年需要自己的 K-ETA。不過台灣目前適用暫時免除，所以在 ${EXEMPT_UNTIL} 前入境，不論幾歲都不需要 K-ETA。`,
         },
         { source: { label: "K-ETA — 依年齡免除的公告（韓文）", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=175266&esntlPnotiMtYn=Y" } },
         { h2: "入境卡照樣要交" },
@@ -784,6 +784,87 @@ export const zhTwPractical: PracticalPack = {
       faq: [
         { q: "韓國的緊急電話是幾號？", a: "報警打 112，火警與救護車打 119。" },
         { q: "打 112 可以說中文嗎？", a: "可以。自 2024 年 3 月起，警察報案電話透過三方通話提供 24 小時英文與中文口譯。" },
+      ],
+    },
+    /* ── 2026-11-15 追加（英語 major-airports の横展開）。英語版の確認日は 15 November 2026 ── */
+    {
+      slug: "major-airports",
+      enSlug: "major-airports",
+      added: "2026-11-15",
+      title: "韓國主要國際機場：仁川、金浦、金海、濟州",
+      description: "仁川的航廈請以電子機票為準；預訂後續交通時，入境審查請預留 1～2 小時；計程車請到指定排班處搭乘。",
+      checked: "2026年11月15日",
+      practical: true,
+      related: [HUB, "arrival-card-and-e-gates", "korea-transit", "transport-cards"],
+      blocks: [
+        {
+          p: "多數國際旅客都在仁川國際機場入境，由仁川國際機場公社營運。金浦、金海（釜山）與濟州機場則由韓國機場公社營運。",
+        },
+        { h2: "仁川：兩個航廈" },
+        {
+          ul: [
+            "第一航廈：仁川 永宗區 機場路（Gonghang-ro）272",
+            "第二航廈：仁川 永宗區 第二航廈大路（Je2terminal-daero）446",
+            "第二航廈列出的航空公司包括大韓航空、韓亞航空、真航空、首爾航空、釜山航空與達美航空",
+            "第一航廈列出的航空公司包括濟州航空、Trinity Airways、易斯達航空、Air Premia、PARATA AIR、Aero K 及其他外國航空公司",
+            "服務專線：1577-2600（07:00–22:00，全年無休）",
+          ],
+        },
+        {
+          note: "仁川機場表示，因為共享班號等航空公司之間的安排，實際使用的航廈可能不同。請以電子機票上的航廈為準。",
+        },
+        { h2: "抵達仁川之後" },
+        {
+          ul: [
+            "如果在登機區（Concourse）抵達，要搭接駁列車（24 小時營運）前往航廈",
+            `接著是入境審查。仁川機場的說明指出，只有未登錄的外國人需要填寫入境卡；K-ETA 的說明另外補充，持 K-ETA 者免交入境卡。台灣護照在 ${EXEMPT_UNTIL} 前適用暫時免除、沒有 K-ETA，因此要交入境卡`,
+            "通過入境審查後，搭手扶梯到 1 樓領取行李",
+          ],
+        },
+        { h2: "從仁川進市區" },
+        {
+          ul: [
+            "仁川機場提醒，預訂大眾運輸時，落地後請為入境審查預留 1～2 小時",
+            "機場鐵路（AREX）車站位於各航廈地下 1 樓的交通中心。路線圖顯示從第一航廈到金浦機場約 44 分鐘，可在金浦機場站轉乘地鐵 5 號線、9 號線、金浦黃金線與西海線",
+            "AREX 也連接兩個航廈：約 6 分鐘，1,050 韓元——需要付費",
+            "第一航廈的巴士票，室內在 4 號與 9 號出口旁販售，室外則在 4、6、7、8、11、13 號出口附近",
+            "計程車：仁川機場提醒，冒充計程車的叫車廂型車（Call Van）違法攬客與超收車資的情形很常見，建議到指定的計程車排班處搭車",
+            "行李配送（T-Luggage）：第一航廈 3 樓 B 報到櫃台對面，以及第二航廈 3 樓 H 報到櫃台對面",
+          ],
+        },
+        { source: { label: "Incheon International Airport — Arrival guide and terminals", url: "https://www.airport.kr/ap_en/1439/subview.do" } },
+        { source: { label: "Incheon International Airport — Bus", url: "https://www.airport.kr/ap_en/1502/subview.do" } },
+        { source: { label: "Incheon International Airport — Airport Railroad", url: "https://www.airport.kr/ap_en/1512/subview.do" } },
+        { source: { label: "Incheon International Airport — Transfers between terminals", url: "https://www.airport.kr/ap_en/1525/subview.do" } },
+        { source: { label: "Incheon International Airport — Taxi", url: "https://www.airport.kr/ap_en/1515/subview.do" } },
+        { h2: "金浦（首爾）" },
+        {
+          p: "金浦國際機場位於首爾 江西區 天空路（Haneul-gil）112，國內線與國際線航廈分開。金浦機場站連接機場鐵路與地鐵 5 號線、9 號線、金浦黃金線及西海線。",
+        },
+        { source: { label: "Korea Airports Corporation — Gimpo International Airport", url: "https://www.airport.co.kr/gimpoeng/cms/frCon/index.do?MENU_ID=510" } },
+        { h2: "金海（釜山）" },
+        {
+          p: "金海國際機場位於釜山 江西區。新的國際線航廈於 2007 年 10 月啟用，2017 年 7 月擴建。前往西面與釜田的機場豪華巴士，從國際線與國內線航廈 1 樓的 3 號乘車處發車。",
+        },
+        { source: { label: "Korea Airports Corporation — Gimhae International Airport", url: "https://www.airport.co.kr/gimhaeeng/cms/frCon/index.do?MENU_ID=300" } },
+        { h2: "濟州" },
+        {
+          ul: [
+            "濟州國際機場位於濟州道 濟州市 機場路（Gonghang-ro）2。600 號機場豪華巴士停靠在 5 號門前",
+            "自 2022 年 9 月 1 日起，K-ETA 適用國家的旅客從海外搭乘飛往濟州的班機或船舶前，也需要取得 K-ETA——除非適用免除，這點和韓國其他地方相同",
+            "另外，濟州有免簽入境制度，適用於搭乘國際直航班機或船舶前來旅遊或過境的旅客，停留 30 天、限於濟州。部分國籍不適用，名單請查詢韓國簽證入口網站（Korea Visa Portal）",
+          ],
+        },
+        { source: { label: "Korea Airports Corporation — Jeju International Airport", url: "https://www.airport.co.kr/jejueng/cms/frCon/index.do?MENU_ID=270" } },
+        { source: { label: "K-ETA notice — K-ETA required for Jeju-bound travel from 1 September 2022", url: "https://www.k-eta.go.kr/portal/board/viewboarddetail.do?bbsSn=53251" } },
+        { source: { label: "Korea Visa Portal — Visa-free entry guide", url: "https://www.visa.go.kr" } },
+        {
+          note: "旅客當天登記入境自動通關的方式，請見本站「入境卡與自動通關」那一頁。",
+        },
+      ],
+      faq: [
+        { q: "我會在仁川的哪個航廈抵達？", a: "取決於航空公司，共享班號的班機也可能不同。仁川機場表示，請以電子機票上的航廈為準。" },
+        { q: "仁川第一、第二航廈之間怎麼移動？", a: "搭機場鐵路。仁川機場標示約 6 分鐘、車資 1,050 韓元，需要付費。" },
       ],
     },
   ],
